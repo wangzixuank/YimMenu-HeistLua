@@ -1,14 +1,32 @@
 local myTab = gui.get_tab("GUI_TAB_LUA_SCRIPTS")
 
-PlayerIndex = STAT_GET_INT("MPPLY_LAST_MP_CHAR") mpx = PlayerIndex if PlayerIndex == 0 then mpx = "MP0_" else mpx = "MP1_" end
+function MP_Index()
+    local MP_IPTR = memory.allocate(2)
+    STATS.STAT_GET_INT(MISC.GET_HASH_KEY("MPPLY_LAST_MP_CHAR"), MP_IPTR, -1)
+    return memory.ptr_to_handle(MP_IPTR)
+end
+
+PlayerIndex = 0
+
+local mpx = PlayerIndex 
+if PlayerIndex == 0 then 
+    mpx = "MP0_" 
+else 
+    mpx = "MP1_" 
+end
+
+-- local Cayo0 = myTab:add_button("test", function()
+--     gui.show_message(mpx .. "123456")
+-- end)
 
 ----Cayo----start
 local Cayo1 = myTab:add_button("完成佩岛前置", function()
+    STAT_SET_INT("H4_PROGRESS", 131055)
+    STAT_SET_INT("H4CNF_TARGET", 5)
     STAT_SET_INT("H4_MISSIONS", -1)
     STAT_SET_INT("H4CNF_APPROACH", -1)
-    STAT_SET_INT("H4CNF_TARGET", 5)
     STAT_SET_INT("H4CNF_BS_ENTR", 63)
-    STAT_SET_INT("H4CNF_BS_GEN", 63)
+    -- STAT_SET_INT("H4CNF_BS_GEN", 63)
 end)
 
 local Cayo2 = myTab:add_button("呼叫虎鲸", function()
@@ -17,7 +35,7 @@ end)
 
 -- local Cayo3 = myTab:add_button("tp Kosatka board", function()
 --     -- TELEPORT(1561.2369, 385.8771, -49.689915)
---     -- TELEPORT(-619.987, 282.960, 81.639)
+--     TELEPORT(-619.987, 282.960, 81.639)
 --     -- if STAT_GET_INT("IH_SUB_OWNED") == 0 then
 --     -- else
 --     --     TELEPORT(1561.2369, 385.8771, -49.689915)
@@ -90,23 +108,24 @@ local casino2 = myTab:add_button("全员480%分红", function()
     SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 4, 480)
 end)
 
-local casino3 = myTab:add_checkbox("循环移除NPC武器")
-local casino30 = myTab:add_button("开始移除", function()
-    while casino3:is_enabled() do
-        for k, ent in pairs(ENTITY.get_all_peds_as_handles()) do
-            if not IS_PED_PLAYER(ent) then
-                -- if HostilePed then
-                if PED.IS_PED_IN_COMBAT(ent, PLAYER.PLAYER_ID()) then
-                    WEAPON.REMOVE_ALL_PED_WEAPONS(ent, true)
-                end
-                -- else
-                --     WEAPON.REMOVE_ALL_PED_WEAPONS(ent, true)
-                -- end
-            end
-        end
-        script.sleep(1000)
-    end
-end)
+-- local casino3 = myTab:add_checkbox("循环移除NPC武器")
+-- local casino30 = myTab:add_button("开始移除", function()
+--     while casino3:is_enabled() do
+--         -- gui.show_message(mpx .. "123456")
+--         for k, ent in pairs(ENTITY.get_all_peds_as_handles()) do
+--             if not IS_PED_PLAYER(ent) then
+--                 -- if HostilePed then
+--                 if PED.IS_PED_IN_COMBAT(ent, PLAYER.PLAYER_ID()) then
+--                     WEAPON.REMOVE_ALL_PED_WEAPONS(ent, true)
+--                 end
+--                 -- else
+--                 --     WEAPON.REMOVE_ALL_PED_WEAPONS(ent, true)
+--                 -- end
+--             end
+--         end
+--         script.sleep(1000)
+--     end
+-- end)
 
 local casino4 = myTab:add_button("跳指纹/密码锁", function()
     if GET_INT_LOCAL("fm_mission_controller", 52964) ~= 1 then
@@ -124,12 +143,14 @@ end)
 
 
 
+
+
 function STAT_SET_INT(statName, value)
     STATS.STAT_SET_INT(MISC.GET_HASH_KEY(mpx .. statName),value,true)
 end
 
 function STAT_GET_INT(statName)
-    local IntPTR = memory.allocate()
+    local IntPTR = memory.alloc_int()
     STATS.STAT_GET_INT(MISC.GET_HASH_KEY(mpx .. statName), IntPTR, -1)
     return memory.get_address(IntPTR)
 end
@@ -143,12 +164,12 @@ function GET_INT_LOCAL(script, script_local)
 end
 
 function SET_HEADING(heading)
-    native.invoke_void("ENTITY.SET_ENTITY_HEADING", GET_PLAYER_PED_ID(),heading)
+    natives.invoke_void("ENTITY.SET_ENTITY_HEADING", GET_PLAYER_PED_ID(),heading)
 end
 
 function TELEPORT(x, y, z)
-    -- PED.SET_PED_COORDS_KEEP_VEHICLE(PLAYER.PLAYER_PED_ID(), x, y, z)
-    native.invoke_void("PED.SET_PED_COORDS_KEEP_VEHICLE", GET_PLAYER_PED_ID(), x, y, z)
+    PED.SET_PED_COORDS_KEEP_VEHICLE(GET_PLAYER_PED_ID(), x, y, z)
+    -- natives.invoke_void("PED.SET_PED_COORDS_KEEP_VEHICLE", PLAYER.PLAYER_PED_ID(), x, y, z)
 end
 
 function SET_FLOAT_LOCAL(script, script_local, value)
@@ -156,7 +177,8 @@ function SET_FLOAT_LOCAL(script, script_local, value)
 end
 
 function GET_PLAYER_PED_ID()
-    return native.invoke_int("PLAYER.PLAYER_PED_ID");
+    return PLAYER.PLAYER_PED_ID()
+    -- return natives.invoke_int("PLAYER.PLAYER_PED_ID");
 end
 
 ---判断是否为玩家
