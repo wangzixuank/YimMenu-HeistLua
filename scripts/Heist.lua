@@ -1,3 +1,4 @@
+-- v1.2
 local myTab = gui.get_tab("GUI_TAB_LUA_SCRIPTS")
 
 function MP_Index()
@@ -18,6 +19,7 @@ end
 -- local Cayo0 = myTab:add_button("test", function()
 --     gui.show_message(mpx .. "123456")
 -- end)
+myTab:add_separator()
 
 ----Cayo----start
 local Cayo1 = myTab:add_button("完成佩岛前置", function()
@@ -33,16 +35,16 @@ local Cayo2 = myTab:add_button("呼叫虎鲸", function()
     globals.set_int(2794162 + 960, 1)
 end)
 
--- local Cayo3 = myTab:add_button("tp Kosatka board", function()
---     -- TELEPORT(1561.2369, 385.8771, -49.689915)
---     TELEPORT(-619.987, 282.960, 81.639)
---     -- if STAT_GET_INT("IH_SUB_OWNED") == 0 then
---     -- else
---     --     TELEPORT(1561.2369, 385.8771, -49.689915)
---     --     SET_HEADING(175)
---     --     STAT_SET_INT("H4_PROGRESS", 131055)
---     -- end
--- end)
+local Cayo3 = myTab:add_button("传到虎鲸内", function()
+    -- TELEPORT(1561.2369, 385.8771, -49.689915)
+    -- TELEPORT(-619.987, 282.960, 81.639)
+    if STAT_GET_INT("IH_SUB_OWNED") == 0 then
+    else
+        TELEPORT(1561.2369, 385.8771, -49.689915)
+        SET_HEADING(175)
+        -- STAT_SET_INT("H4_PROGRESS", 131055)
+    end
+end)
 
 -- 使用标签页对象的add_button函数创建一个按钮
 local Cayo4 = myTab:add_button("佩岛全员135分红", function()
@@ -52,14 +54,14 @@ local Cayo4 = myTab:add_button("佩岛全员135分红", function()
     globals.set_int(1978495 + 825 + 56 + 4, 135)
 end)
 
--- local Cayo5 = myTab:add_button("传到大门", function()
---     TELEPORT(4974.189, -5703.279, 19.898539)
--- end)
+local Cayo5 = myTab:add_button("传到大门", function()
+    TELEPORT(4974.189, -5703.279, 19.898539)
+end)
 
--- local Cayo6 = myTab:add_button("传到主目标", function()
---     TELEPORT(5006.7, -5756.2, 14.8)
---     SET_HEADING(145)
--- end)
+local Cayo6 = myTab:add_button("传到主目标", function()
+    TELEPORT(5006.7, -5756.2, 14.8)
+    SET_HEADING(145)
+end)
 
 local Cayo7 = myTab:add_button("快速切割", function()
     SET_FLOAT_LOCAL("fm_mission_controller_2020", 29685 + 3, 100)
@@ -67,18 +69,26 @@ end, function()
     SET_FLOAT_LOCAL("fm_mission_controller_2020", 29685 + 3, 0)
 end)
 
--- local Cayo8 = myTab:add_button("传到大门出口", function()
---     TELEPORT(4990.0386, -5717.6895, 19.880217)
---     SET_HEADING(50)
+local Cayo8 = myTab:add_button("传到大门出口", function()
+    TELEPORT(4990.0386, -5717.6895, 19.880217)
+    SET_HEADING(50)
+end)
+
+-- local Cayo80 = myTab:add_button("生成图拉尔多", function()
+--     spawn('toreador')
 -- end)
 
--- local Cayo9 = myTab:add_button("传到海里", function()
---     TELEPORT(4771.479, -6165.737, -39.079613)
--- end)
+local Cayo9 = myTab:add_button("传到海里", function()
+    TELEPORT(4771.479, -6165.737, -39.079613)
+end)
 
 ----Cayo----end
 
 ----casino----start
+local casino10 = myTab:add_button("游戏厅前门口", function()
+    TELEPORT(-619.987, 282.960, 81.639)
+end)
+
 local casino1 = myTab:add_button("完成气势汹汹前置", function()
     STAT_SET_INT("H3_COMPLETEDPOSIX", -1)
     STAT_SET_INT("H3OPT_MASKS", 4)
@@ -146,13 +156,13 @@ end)
 
 
 function STAT_SET_INT(statName, value)
-    STATS.STAT_SET_INT(MISC.GET_HASH_KEY(mpx .. statName),value,true)
+    STATS.STAT_SET_INT(joaat(mpx .. statName),value,true)
 end
 
 function STAT_GET_INT(statName)
-    local IntPTR = memory.alloc_int()
-    STATS.STAT_GET_INT(MISC.GET_HASH_KEY(mpx .. statName), IntPTR, -1)
-    return memory.get_address(IntPTR)
+    local IntPTR = memory.allocate()
+    STATS.STAT_GET_INT(joaat(mpx .. statName), IntPTR, -1)
+    return memory.ptr_to_handle(IntPTR)
 end
 
 function SET_INT_LOCAL(script, script_local, value)
@@ -164,7 +174,11 @@ function GET_INT_LOCAL(script, script_local)
 end
 
 function SET_HEADING(heading)
-    natives.invoke_void("ENTITY.SET_ENTITY_HEADING", GET_PLAYER_PED_ID(),heading)
+    ENTITY.SET_ENTITY_HEADING(GET_PLAYER_PED_ID(), heading)
+end
+
+function GET_HEADING()
+    return ENTITY.GET_ENTITY_HEADING(GET_PLAYER_PED_ID())
 end
 
 function TELEPORT(x, y, z)
@@ -179,6 +193,12 @@ end
 function GET_PLAYER_PED_ID()
     return PLAYER.PLAYER_PED_ID()
     -- return natives.invoke_int("PLAYER.PLAYER_PED_ID");
+end
+
+function spawn(name)
+    pc = ENTITY.GET_ENTITY_COORDS(GET_PLAYER_PED_ID(), false);
+    VEHICLE.CREATE_VEHICLE(joaat(name), pc.x, pc.y + 10, pc.z + 2, GET_HEADING(), true, true, false)
+    -- CREATE_VEHICLE(Hash modelHash, float x, float y, float z, float heading, BOOL isNetwork, BOOL bScriptHostVeh, BOOL p7)
 end
 
 ---判断是否为玩家
