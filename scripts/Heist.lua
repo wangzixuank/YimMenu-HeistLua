@@ -1,27 +1,16 @@
--- v1.2
-local myTab = gui.get_tab("GUI_TAB_LUA_SCRIPTS")
+-- v1.2 -- 感谢Alice和sch的指导
+local tabName = "GUI_TAB_LUA_SCRIPTS"
+local myTab = gui.get_tab(tabName)
 
-function MP_Index()
-    local MP_IPTR = memory.allocate(2)
-    STATS.STAT_GET_INT(MISC.GET_HASH_KEY("MPPLY_LAST_MP_CHAR"), MP_IPTR, -1)
-    return memory.ptr_to_handle(MP_IPTR)
-end
+package.path = os.getenv("UserProfile").."/AppData/Roaming/YimMenu/scripts/?.lua"
+require("lib/lib[Alice]")
+Alice = {}
 
-PlayerIndex = 0
-
-local mpx = PlayerIndex 
-if PlayerIndex == 0 then 
-    mpx = "MP0_" 
-else 
-    mpx = "MP1_" 
-end
-
--- local Cayo0 = myTab:add_button("test", function()
---     gui.show_message(mpx .. "123456")
--- end)
+local mpx = ""  
 myTab:add_separator()
 
 ----Cayo----start
+myTab:add_text("佩岛（载具生成不能用就多按几次）") 
 local Cayo1 = myTab:add_button("完成佩岛前置", function()
     STAT_SET_INT("H4_PROGRESS", 131055)
     STAT_SET_INT("H4CNF_TARGET", 5)
@@ -31,20 +20,26 @@ local Cayo1 = myTab:add_button("完成佩岛前置", function()
     -- STAT_SET_INT("H4CNF_BS_GEN", 63)
 end)
 
+myTab:add_sameline()
+
 local Cayo2 = myTab:add_button("呼叫虎鲸", function()
     globals.set_int(2794162 + 960, 1)
 end)
 
+myTab:add_sameline()
+
 local Cayo3 = myTab:add_button("传到虎鲸内", function()
     -- TELEPORT(1561.2369, 385.8771, -49.689915)
     -- TELEPORT(-619.987, 282.960, 81.639)
-    if STAT_GET_INT("IH_SUB_OWNED") == 0 then
-    else
+    -- if STAT_GET_INT("IH_SUB_OWNED") == 0 then
+    -- else
         TELEPORT(1561.2369, 385.8771, -49.689915)
         SET_HEADING(175)
         -- STAT_SET_INT("H4_PROGRESS", 131055)
-    end
+    -- end
 end)
+
+myTab:add_sameline()
 
 -- 使用标签页对象的add_button函数创建一个按钮
 local Cayo4 = myTab:add_button("佩岛全员135分红", function()
@@ -54,14 +49,20 @@ local Cayo4 = myTab:add_button("佩岛全员135分红", function()
     globals.set_int(1978495 + 825 + 56 + 4, 135)
 end)
 
+myTab:add_sameline()
+
 local Cayo5 = myTab:add_button("传到大门", function()
     TELEPORT(4974.189, -5703.279, 19.898539)
 end)
+
+myTab:add_sameline()
 
 local Cayo6 = myTab:add_button("传到主目标", function()
     TELEPORT(5006.7, -5756.2, 14.8)
     SET_HEADING(145)
 end)
+
+myTab:add_sameline()
 
 local Cayo7 = myTab:add_button("快速切割", function()
     SET_FLOAT_LOCAL("fm_mission_controller_2020", 29685 + 3, 100)
@@ -69,25 +70,36 @@ end, function()
     SET_FLOAT_LOCAL("fm_mission_controller_2020", 29685 + 3, 0)
 end)
 
+myTab:add_sameline()
+
 local Cayo8 = myTab:add_button("传到大门出口", function()
     TELEPORT(4990.0386, -5717.6895, 19.880217)
     SET_HEADING(50)
 end)
 
--- local Cayo80 = myTab:add_button("生成图拉尔多", function()
---     spawn('toreador')
--- end)
+myTab:add_sameline()
+
+local Cayo80 = myTab:add_button("生成图拉尔多", function()
+    spawn("TOREADOR")
+end)
+
+myTab:add_sameline()
 
 local Cayo9 = myTab:add_button("传到海里", function()
     TELEPORT(4771.479, -6165.737, -39.079613)
 end)
 
-----Cayo----end
+----Cayo----end--------------------------------------------------------
+myTab:add_separator()
 
 ----casino----start
+myTab:add_text("赌场") 
+
 local casino10 = myTab:add_button("游戏厅前门口", function()
     TELEPORT(-619.987, 282.960, 81.639)
 end)
+
+myTab:add_sameline()
 
 local casino1 = myTab:add_button("完成气势汹汹前置", function()
     STAT_SET_INT("H3_COMPLETEDPOSIX", -1)
@@ -111,6 +123,8 @@ local casino1 = myTab:add_button("完成气势汹汹前置", function()
     STAT_SET_INT("H3OPT_BITSET0", 3670102)
 end)
 
+myTab:add_sameline()
+
 local casino2 = myTab:add_button("全员480%分红", function()
     SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 1, 480)
     SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 2, 480)
@@ -118,24 +132,18 @@ local casino2 = myTab:add_button("全员480%分红", function()
     SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 4, 480)
 end)
 
--- local casino3 = myTab:add_checkbox("循环移除NPC武器")
--- local casino30 = myTab:add_button("开始移除", function()
---     while casino3:is_enabled() do
---         -- gui.show_message(mpx .. "123456")
---         for k, ent in pairs(ENTITY.get_all_peds_as_handles()) do
---             if not IS_PED_PLAYER(ent) then
---                 -- if HostilePed then
---                 if PED.IS_PED_IN_COMBAT(ent, PLAYER.PLAYER_ID()) then
---                     WEAPON.REMOVE_ALL_PED_WEAPONS(ent, true)
---                 end
---                 -- else
---                 --     WEAPON.REMOVE_ALL_PED_WEAPONS(ent, true)
---                 -- end
---             end
---         end
---         script.sleep(1000)
---     end
--- end)
+myTab:add_sameline()
+
+myTab:add_button("设置生命数80", function()
+    chk_script_host("fm_mission_controller")
+    SET_INT_LOCAL("fm_mission_controller", 26136 + 1325 + 1, 80)
+end)
+myTab:add_sameline()
+
+local casino40 = myTab:add_button("生成骷髅马", function()
+    spawn("KURUMA2")
+end)
+myTab:add_sameline()
 
 local casino4 = myTab:add_button("跳指纹/密码锁", function()
     if GET_INT_LOCAL("fm_mission_controller", 52964) ~= 1 then
@@ -146,23 +154,94 @@ local casino4 = myTab:add_button("跳指纹/密码锁", function()
     end
 end)
 
+myTab:add_sameline()
+
 local casino5 = myTab:add_button("跳切割金库", function()
     SET_INT_LOCAL("fm_mission_controller", 10101 + 7, GET_INT_LOCAL("fm_mission_controller", 10101 + 37))
 end)
-----casino----end
+----casino----end--------------------------------
+
+myTab:add_separator()
+
+----domms----start
+myTab:add_text("末日") 
+
+myTab:add_button("完成末日一前置", function()
+    STAT_SET_INT("GANGOPS_FLOW_MISSION_PROG", 503)
+    STAT_SET_INT("GANGOPS_HEIST_STATUS", 819193)
+    STAT_SET_INT("GANGOPS_FLOW_NOTIFICATIONS", 1557)
+end)
+myTab:add_sameline()
+
+myTab:add_button("完成末日二前置", function()
+    STAT_SET_INT("GANGOPS_FLOW_MISSION_PROG", 240)
+    STAT_SET_INT("GANGOPS_HEIST_STATUS", 819198)
+    STAT_SET_INT("GANGOPS_FLOW_NOTIFICATIONS", 1557)
+end)
+myTab:add_sameline()
+
+myTab:add_button("完成末日三前置", function()
+    STAT_SET_INT("GANGOPS_FLOW_MISSION_PROG", 16368)
+    STAT_SET_INT("GANGOPS_HEIST_STATUS", 819190)
+    STAT_SET_INT("GANGOPS_FLOW_NOTIFICATIONS", 1557)
+end)
+myTab:add_sameline()
 
 
+----从 sch 抄的 https://github.com/sch-lda/SCH-LUA-YIMMENU/blob/main/sch.lua
+myTab:add_button("设施计划屏幕", function()
+    local PlayerPos = ENTITY.GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(PLAYER.PLAYER_PED_ID(), 0.0, 0.52, 0.0)
+    local intr = INTERIOR.GET_INTERIOR_AT_COORDS(PlayerPos.x, PlayerPos.y, PlayerPos.z)
+    if intr == 269313 then 
+        if HUD.DOES_BLIP_EXIST(HUD.GET_FIRST_BLIP_INFO_ID(428)) then
+            TELEPORT(350.69284, 4872.308, -60.794243)
+            SET_HEADING(-50)
+        end
+    else
+        gui.show_message("确保自己在设施内","请先进入设施再传送到计划屏幕")
+        tpfac()
+    end
+    
+end)
+myTab:add_sameline()
 
+local domms = myTab:add_input_int("分红")
+myTab:add_sameline()
+
+myTab:add_button("设置全员分红", function()
+    SET_INT_GLOBAL(1967630 + 812 + 50 + 1, domms:get_value())
+    SET_INT_GLOBAL(1967630 + 812 + 50 + 2, domms:get_value())
+    SET_INT_GLOBAL(1967630 + 812 + 50 + 3, domms:get_value())
+    SET_INT_GLOBAL(1967630 + 812 + 50 + 4, domms:get_value())
+end)
+----domms----end-------------------------------------
 
 
 function STAT_SET_INT(statName, value)
-    STATS.STAT_SET_INT(joaat(mpx .. statName),value,true)
+    if mpx == "" then
+        PlayerIndex = menu.current_character_slot()
+        if PlayerIndex == 0 then 
+            mpx = "MP0_" 
+        else 
+            mpx = "MP1_" 
+        end
+    end
+    STATS.STAT_SET_INT(get_hash(mpx .. statName),value,true)
 end
 
 function STAT_GET_INT(statName)
-    local IntPTR = memory.allocate()
-    STATS.STAT_GET_INT(joaat(mpx .. statName), IntPTR, -1)
-    return memory.ptr_to_handle(IntPTR)
+    if mpx == "" then
+        PlayerIndex = menu.current_character_slot()
+        if PlayerIndex == 0 then 
+            mpx = "MP0_" 
+        else 
+            mpx = "MP1_" 
+        end
+    end
+    -- local IntPTR = memory.allocate()
+    -- STATS.STAT_GET_INT(get_hash(mpx .. statName), IntPTR, -1)
+    -- return memory.ptr_to_handle(IntPTR)
+    return stats.stat_get_int(mpx .. statName)
 end
 
 function SET_INT_LOCAL(script, script_local, value)
@@ -192,13 +271,35 @@ end
 
 function GET_PLAYER_PED_ID()
     return PLAYER.PLAYER_PED_ID()
-    -- return natives.invoke_int("PLAYER.PLAYER_PED_ID");
 end
 
 function spawn(name)
-    pc = ENTITY.GET_ENTITY_COORDS(GET_PLAYER_PED_ID(), false);
-    VEHICLE.CREATE_VEHICLE(joaat(name), pc.x, pc.y + 10, pc.z + 2, GET_HEADING(), true, true, false)
-    -- CREATE_VEHICLE(Hash modelHash, float x, float y, float z, float heading, BOOL isNetwork, BOOL bScriptHostVeh, BOOL p7)
+    -- pc = ENTITY.GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(GET_PLAYER_PED_ID(), 0, 5.0, 0);
+    -- v = vehicle.create_vehicle(name, {pc.x, pc.y, pc.z}, true)
+    gui.show_message("刷车中")
+    STREAMING.REQUEST_MODEL(get_hash(name))
+    while not STREAMING.HAS_MODEL_LOADED(get_hash(name)) do script.yield() end
+    -- pc = ENTITY.GET_ENTITY_COORDS(GET_PLAYER_PED_ID());
+    pc = ENTITY.GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(GET_PLAYER_PED_ID(), 0, 5.0, 0);
+    local v = VEHICLE.CREATE_VEHICLE(get_hash(name),  pc.x, pc.y, pc.z , GET_HEADING(), true, false, false)
+    STREAMING.SET_MODEL_AS_NO_LONGER_NEEDED(get_hash(name))
+    script.yield()
+    -- MISC.GET_HASH_KEY("oppressor2")
+    -- gui.show_message(GET_HEADING() .. "123456")
+    gui.show_message("刷车成功")
+end
+
+function get_hash(name)
+    -- return MISC.GET_HASH_KEY(name)
+    return joaat(name)
+end
+
+
+-- fm_mission_controller_2020=Cayo/Tuners/ULP/Agency;fm_mission_controller=Casino/Doomsday/Classic
+function chk_script_host(scriptname)
+    network.force_script_host(scriptname)
+    repeat script.sleep(100) until NETWORK.NETWORK_GET_HOST_OF_SCRIPT(scriptname, 0, 0) == PLAYER.PLAYER_ID()
+    gui.show_message("已成为脚本主机")
 end
 
 ---判断是否为玩家
