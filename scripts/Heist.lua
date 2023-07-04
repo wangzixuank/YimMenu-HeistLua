@@ -5,12 +5,16 @@ local myTab = gui.get_tab(tabName)
 package.path = os.getenv("UserProfile").."/AppData/Roaming/YimMenu/scripts/?.lua"
 require("lib/lib[Alice]")
 Alice = {}
-
-local mpx = ""  
+--""不能用就改为"MP0_"或者改为"MP1_"试一下
+local mpx = ""
 myTab:add_separator()
 
+-- myTab:add_button("test", function()
+--     getPlayerId()
+--     log.info(mpx)
+-- end)
 ----Cayo----start
-myTab:add_text("佩岛（载具生成不能用就多按几次）") 
+myTab:add_text("佩岛") 
 local Cayo1 = myTab:add_button("完成佩岛前置", function()
     STAT_SET_INT("H4_PROGRESS", 131055)
     STAT_SET_INT("H4CNF_TARGET", 5)
@@ -218,26 +222,12 @@ end)
 
 
 function STAT_SET_INT(statName, value)
-    if mpx == "" then
-        PlayerIndex = menu.current_character_slot()
-        if PlayerIndex == 0 then 
-            mpx = "MP0_" 
-        else 
-            mpx = "MP1_" 
-        end
-    end
+    getPlayerId()
     STATS.STAT_SET_INT(get_hash(mpx .. statName),value,true)
 end
 
 function STAT_GET_INT(statName)
-    if mpx == "" then
-        PlayerIndex = menu.current_character_slot()
-        if PlayerIndex == 0 then 
-            mpx = "MP0_" 
-        else 
-            mpx = "MP1_" 
-        end
-    end
+    getPlayerId()
     -- local IntPTR = memory.allocate()
     -- STATS.STAT_GET_INT(get_hash(mpx .. statName), IntPTR, -1)
     -- return memory.ptr_to_handle(IntPTR)
@@ -276,7 +266,7 @@ end
 function spawn(name)
     -- pc = ENTITY.GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(GET_PLAYER_PED_ID(), 0, 5.0, 0);
     -- v = vehicle.create_vehicle(name, {pc.x, pc.y, pc.z}, true)
-    gui.show_message("刷车中")
+    -- gui.show_message("刷车中")
     STREAMING.REQUEST_MODEL(get_hash(name))
     while not STREAMING.HAS_MODEL_LOADED(get_hash(name)) do script.yield() end
     -- pc = ENTITY.GET_ENTITY_COORDS(GET_PLAYER_PED_ID());
@@ -286,7 +276,7 @@ function spawn(name)
     script.yield()
     -- MISC.GET_HASH_KEY("oppressor2")
     -- gui.show_message(GET_HEADING() .. "123456")
-    gui.show_message("刷车成功")
+    -- gui.show_message("刷车成功")
 end
 
 function get_hash(name)
@@ -294,12 +284,33 @@ function get_hash(name)
     return joaat(name)
 end
 
+---通过alice的lib获取
+function getPlayerId()
+    if mpx == "" then
+        mpx = stats.stat_get_int("MPx_SCRIPT_INCREASE_STAM")
+        -- local playerid = globals.get_int(1574918)
+        -- mpx = "MP0_"
+        -- if playerid == 0 then 
+        --     mpx = "MP1_" 
+        -- end
+    end
+    -- PlayerIndex = menu.current_character_slot()
+    -- if PlayerIndex == 0 then 
+    --     mpx = "MP0_" 
+    -- else 
+    --     mpx = "MP1_" 
+    -- end
+end
 
 -- fm_mission_controller_2020=Cayo/Tuners/ULP/Agency;fm_mission_controller=Casino/Doomsday/Classic
 function chk_script_host(scriptname)
     network.force_script_host(scriptname)
     repeat script.sleep(100) until NETWORK.NETWORK_GET_HOST_OF_SCRIPT(scriptname, 0, 0) == PLAYER.PLAYER_ID()
     gui.show_message("已成为脚本主机")
+end
+
+function SET_INT_GLOBAL(int,value)
+    globals.set_int(int, value)
 end
 
 ---判断是否为玩家
