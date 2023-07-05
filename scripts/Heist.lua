@@ -2,7 +2,7 @@
 local tabName = "GUI_TAB_LUA_SCRIPTS"
 local myTab = gui.get_tab(tabName)
 
-package.path = os.getenv("UserProfile").."/AppData/Roaming/YimMenu/scripts/?.lua"
+-- package.path = os.getenv("UserProfile").."/AppData/Roaming/YimMenu/scripts/?.lua"
 require("lib/lib[Alice]")
 Alice = {}
 --""不能用就改为"MP0_"或者改为"MP1_"试一下
@@ -22,6 +22,7 @@ local Cayo1 = myTab:add_button("完成佩岛前置", function()
     STAT_SET_INT("H4CNF_APPROACH", -1)
     STAT_SET_INT("H4CNF_BS_ENTR", 63)
     -- STAT_SET_INT("H4CNF_BS_GEN", 63)
+    gui.show_message("写入完成", "远离计划面板并重新接近以刷新面板")
 end)
 
 myTab:add_sameline()
@@ -117,14 +118,15 @@ local casino1 = myTab:add_button("完成气势汹汹前置", function()
     STAT_SET_INT("H3OPT_TARGET", 3)
     STAT_SET_INT("H3OPT_POI", 1023)
     STAT_SET_INT("H3OPT_ACCESSPOINTS", 2047)
-    STAT_SET_INT("H3OPT_CREWWEAP", 4)
-    STAT_SET_INT("H3OPT_CREWDRIVER", 3)
-    STAT_SET_INT("H3OPT_CREWHACKER", 4)
+    STAT_SET_INT("H3OPT_CREWWEAP", 4)--枪手10%
+    STAT_SET_INT("H3OPT_CREWDRIVER", 5)--车手10%
+    STAT_SET_INT("H3OPT_CREWHACKER", 4)--黑客10%
     STAT_SET_INT("H3OPT_DISRUPTSHIP", 3)
     STAT_SET_INT("H3OPT_BODYARMORLVL", -1)
     STAT_SET_INT("H3OPT_KEYLEVELS", 2)
     STAT_SET_INT("H3OPT_BITSET1", 799)
     STAT_SET_INT("H3OPT_BITSET0", 3670102)
+    gui.show_message("写入完成", "远离计划面板并重新接近以刷新面板")
 end)
 
 myTab:add_sameline()
@@ -134,13 +136,23 @@ local casino2 = myTab:add_button("全员480%分红", function()
     SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 2, 480)
     SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 3, 480)
     SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 4, 480)
+    --设置面板
+    setBuyer(3)
+    setEntrance(11)
+    setExit(2)
+    --设置面板--end
 end)
 
 myTab:add_sameline()
 
-myTab:add_button("设置生命数80", function()
+local Cayo6 = myTab:add_button("传送到下水道", function()
+    TELEPORT(1034.9442, -271.90024, 50.37195)
+end)
+myTab:add_sameline()
+
+myTab:add_button("一键拿取115w", function()
     chk_script_host("fm_mission_controller")
-    SET_INT_LOCAL("fm_mission_controller", 26136 + 1325 + 1, 80)
+    SET_INT_LOCAL("fm_mission_controller", 19710 + 2686, 1150000)
 end)
 myTab:add_sameline()
 
@@ -220,6 +232,17 @@ myTab:add_button("设置全员分红", function()
 end)
 ----domms----end-------------------------------------
 
+myTab:add_separator()
+-----qita
+myTab:add_text("末日/赌场/公寓") 
+
+myTab:add_button("设置团队生命数100", function()
+    -- menu.instant_heist_team_life("fm_mission_controller", 100)
+    chk_script_host("fm_mission_controller")
+    SET_INT_LOCAL("fm_mission_controller", 26136 + 1325 + 1, 100)
+end)
+myTab:add_sameline()
+-----qita----end---
 
 function STAT_SET_INT(statName, value)
     getPlayerId()
@@ -289,10 +312,10 @@ function getPlayerId()
     if mpx == "" then
         mpx = stats.stat_get_int("MPx_SCRIPT_INCREASE_STAM")
         -- local playerid = globals.get_int(1574918)
-        -- mpx = "MP0_"
-        -- if playerid == 0 then 
-        --     mpx = "MP1_" 
-        -- end
+        mpx = "MP0_"
+        if not playerid == 0 then 
+            mpx = "MP1_" 
+        end
     end
     -- PlayerIndex = menu.current_character_slot()
     -- if PlayerIndex == 0 then 
@@ -304,14 +327,33 @@ end
 
 -- fm_mission_controller_2020=Cayo/Tuners/ULP/Agency;fm_mission_controller=Casino/Doomsday/Classic
 function chk_script_host(scriptname)
+    if NETWORK.NETWORK_GET_HOST_OF_SCRIPT(scriptname, 0, 0) == PLAYER.PLAYER_ID() then return end
     network.force_script_host(scriptname)
     repeat script.sleep(100) until NETWORK.NETWORK_GET_HOST_OF_SCRIPT(scriptname, 0, 0) == PLAYER.PLAYER_ID()
-    gui.show_message("已成为脚本主机")
+    gui.show_message("已成为".. scriptname .. "脚本主机")
 end
 
 function SET_INT_GLOBAL(int,value)
     globals.set_int(int, value)
 end
+
+----dc
+function setEntrance(index)
+    if not NETWORK.NETWORK_IS_SESSION_STARTED() then return end
+    SET_INT_GLOBAL(1971696 + 1497 + 1017, index - 1)
+end
+
+function setExit(index)
+    if not NETWORK.NETWORK_IS_SESSION_STARTED() then return end
+    SET_INT_GLOBAL(1971696 + 1497 + 1018, index - 1)
+end
+
+function setBuyer(index)
+    if not NETWORK.NETWORK_IS_SESSION_STARTED() then return end
+    SET_INT_GLOBAL(1971696 + 1497 + 1019, (index * 3) - 3)
+end
+----dc--end
+
 
 ---判断是否为玩家
 ---@param Ped Ped
