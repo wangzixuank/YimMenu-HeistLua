@@ -126,7 +126,7 @@ local casino1 = myTab:add_button("完成气势汹汹前置", function()
     STAT_SET_INT("H3OPT_KEYLEVELS", 2)
     STAT_SET_INT("H3OPT_BITSET1", 799)
     STAT_SET_INT("H3OPT_BITSET0", 3670102)
-    gui.show_message("写入完成", "远离计划面板并重新接近以刷新面板")
+    gui.show_message("写入完成")
 end)
 
 myTab:add_sameline()
