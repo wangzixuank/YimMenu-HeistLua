@@ -1,5 +1,6 @@
 -- v1.2 -- 感谢Alice和sch的指导
-local tabName = "GUI_TAB_LUA_SCRIPTS"
+tab:add_tab("Heist")
+local tabName = "Heist"
 local myTab = gui.get_tab(tabName)
 
 -- package.path = os.getenv("UserProfile").."/AppData/Roaming/YimMenu/scripts/?.lua"
@@ -237,9 +238,9 @@ myTab:add_separator()
 myTab:add_text("末日/赌场/公寓") 
 
 myTab:add_button("设置团队生命数100", function()
-    -- menu.instant_heist_team_life("fm_mission_controller", 100)
-    chk_script_host("fm_mission_controller")
-    SET_INT_LOCAL("fm_mission_controller", 26136 + 1325 + 1, 100)
+    menu.instant_heist_team_life("fm_mission_controller", 100)
+    -- chk_script_host("fm_mission_controller")
+    -- SET_INT_LOCAL("fm_mission_controller", 26136 + 1325 + 1, 100)
 end)
 myTab:add_sameline()
 -----qita----end---
@@ -287,16 +288,17 @@ function GET_PLAYER_PED_ID()
 end
 
 function spawn(name)
+    command.call("spawn", {get_hash(name)})
     -- pc = ENTITY.GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(GET_PLAYER_PED_ID(), 0, 5.0, 0);
     -- v = vehicle.create_vehicle(name, {pc.x, pc.y, pc.z}, true)
     -- gui.show_message("刷车中")
-    STREAMING.REQUEST_MODEL(get_hash(name))
-    while not STREAMING.HAS_MODEL_LOADED(get_hash(name)) do script.yield() end
-    -- pc = ENTITY.GET_ENTITY_COORDS(GET_PLAYER_PED_ID());
-    pc = ENTITY.GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(GET_PLAYER_PED_ID(), 0, 5.0, 0);
-    local v = VEHICLE.CREATE_VEHICLE(get_hash(name),  pc.x, pc.y, pc.z , GET_HEADING(), true, false, false)
-    STREAMING.SET_MODEL_AS_NO_LONGER_NEEDED(get_hash(name))
-    script.yield()
+    -- STREAMING.REQUEST_MODEL(get_hash(name))
+    -- while not STREAMING.HAS_MODEL_LOADED(get_hash(name)) do myYield() end
+    -- -- pc = ENTITY.GET_ENTITY_COORDS(GET_PLAYER_PED_ID());
+    -- pc = ENTITY.GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(GET_PLAYER_PED_ID(), 0, 5.0, 0);
+    -- local v = VEHICLE.CREATE_VEHICLE(get_hash(name),  pc.x, pc.y, pc.z , GET_HEADING(), true, false, false)
+    -- STREAMING.SET_MODEL_AS_NO_LONGER_NEEDED(get_hash(name))
+    -- myYield()
     -- MISC.GET_HASH_KEY("oppressor2")
     -- gui.show_message(GET_HEADING() .. "123456")
     -- gui.show_message("刷车成功")
@@ -329,7 +331,7 @@ end
 function chk_script_host(scriptname)
     if NETWORK.NETWORK_GET_HOST_OF_SCRIPT(scriptname, 0, 0) == PLAYER.PLAYER_ID() then return end
     network.force_script_host(scriptname)
-    repeat script.sleep(100) until NETWORK.NETWORK_GET_HOST_OF_SCRIPT(scriptname, 0, 0) == PLAYER.PLAYER_ID()
+    repeat myYield() until NETWORK.NETWORK_GET_HOST_OF_SCRIPT(scriptname, 0, 0) == PLAYER.PLAYER_ID()
     gui.show_message("已成为".. scriptname .. "脚本主机")
 end
 
@@ -354,6 +356,13 @@ function setBuyer(index)
 end
 ----dc--end
 
+function myYield(ms)
+    if ms > 0 then
+        script_util:sleep(ms)
+    else
+        script_util:yield()
+    end
+end
 
 ---判断是否为玩家
 ---@param Ped Ped
