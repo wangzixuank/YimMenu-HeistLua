@@ -231,6 +231,13 @@ myTab:add_button("设置全员分红", function()
     SET_INT_GLOBAL(1967630 + 812 + 50 + 3, domms:get_value())
     SET_INT_GLOBAL(1967630 + 812 + 50 + 4, domms:get_value())
 end)
+myTab:add_sameline()
+
+myTab:add_button("破解末日里的小游戏", function()
+    SET_INT_LOCAL("fm_mission_controller", 1509, 3)
+    SET_INT_LOCAL("fm_mission_controller", 1540, 2)
+    SET_INT_LOCAL("fm_mission_controller", 1266 + 135, 3)
+end)
 ----domms----end-------------------------------------
 
 myTab:add_separator()
