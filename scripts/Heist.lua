@@ -137,9 +137,9 @@ local casino2 = myTab:add_button("全员480%分红", function()
     SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 3, 480)
     SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 4, 480)
     --设置面板
-    setBuyer(3)
-    setEntrance(11)
-    setExit(2)
+    -- setBuyer(3)
+    -- setEntrance(11)
+    -- setExit(2)
     --设置面板--end
 end)
 
