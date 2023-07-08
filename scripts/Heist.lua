@@ -4,7 +4,7 @@ local tabName = "Heist"
 local myTab = gui.get_tab(tabName)
 
 -- package.path = os.getenv("UserProfile").."/AppData/Roaming/YimMenu/scripts/?.lua"
-require("lib/lib[Alice]")
+require("Alice-lib/lib")
 Alice = {}
 --""不能用就改为"MP0_"或者改为"MP1_"试一下
 local mpx = ""
