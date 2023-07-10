@@ -1,4 +1,4 @@
--- v1.73 -- 感谢Alice和sch的指导
+-- v1.74 -- 感谢Alice和sch的指导
 local tabName = "Heist by wang"
 local myTab = gui.add_tab(tabName)
 -- local myTab = gui.get_tab(tabName)
@@ -224,14 +224,13 @@ myTab:add_sameline()
 
 local domms = myTab:add_input_int("分红")
 myTab:add_sameline()
-
 myTab:add_button("设置全员分红", function()
     SET_INT_GLOBAL(1967630 + 812 + 50 + 1, domms:get_value())
     SET_INT_GLOBAL(1967630 + 812 + 50 + 2, domms:get_value())
     SET_INT_GLOBAL(1967630 + 812 + 50 + 3, domms:get_value())
     SET_INT_GLOBAL(1967630 + 812 + 50 + 4, domms:get_value())
 end)
-myTab:add_sameline()
+-- myTab:add_sameline()
 
 myTab:add_button("破解末日里的小游戏", function()
     SET_INT_LOCAL("fm_mission_controller", 1509, 3)
@@ -381,5 +380,3 @@ function IS_PED_PLAYER(Ped)
         return true
     end
 end
-
-
