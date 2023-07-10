@@ -1,6 +1,6 @@
--- v1.72 -- 感谢Alice和sch的指导
-local tabName = "Heist"
-local myTab = gui:add_tab(tabName)
+-- v1.73 -- 感谢Alice和sch的指导
+local tabName = "Heist by wang"
+local myTab = gui.add_tab(tabName)
 -- local myTab = gui.get_tab(tabName)
 
 -- package.path = os.getenv("UserProfile").."/AppData/Roaming/YimMenu/scripts/?.lua"
