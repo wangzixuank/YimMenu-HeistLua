@@ -1,7 +1,7 @@
--- v1.71 -- 感谢Alice和sch的指导
+-- v1.72 -- 感谢Alice和sch的指导
 local tabName = "Heist"
--- local myTab = tab:add_tab(tabName)
-local myTab = gui.get_tab(tabName)
+local myTab = gui:add_tab(tabName)
+-- local myTab = gui.get_tab(tabName)
 
 -- package.path = os.getenv("UserProfile").."/AppData/Roaming/YimMenu/scripts/?.lua"
 require("Alice-lib/lib")
