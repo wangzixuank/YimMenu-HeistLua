@@ -1,4 +1,4 @@
--- v1.80 -- 感谢Alice和sch的指导
+-- v1.81 -- 感谢Alice和sch的指导
 local tabName = "Heist by wang"
 local myMainTab = gui.add_tab(tabName)
 -- local myTab = gui.get_tab(tabName)
@@ -296,15 +296,15 @@ myTab:add_button("完成前置", function()
     STAT_SET_INT("HEIST_PLANNING_STAGE", -1)
 end)
 
--- myTab:add_separator()
--- local apartment = myTab:add_input_int("分红")
--- myTab:add_sameline()
--- myTab:add_button("设置全员分红", function()
---     menu.apartment_heist_player_cut(1, apartment:get_value())
--- 	menu.apartment_heist_player_cut(2, apartment:get_value())
--- 	menu.apartment_heist_player_cut(3, apartment:get_value())
--- 	menu.apartment_heist_player_cut(0, apartment:get_value())
--- end)
+myTab:add_separator()
+local apartment = myTab:add_input_int("分红")
+myTab:add_sameline()
+myTab:add_button("设置全员分红", function()
+    menu.apartment_heist_player_cut(1, apartment:get_value())
+	menu.apartment_heist_player_cut(2, apartment:get_value())
+	menu.apartment_heist_player_cut(3, apartment:get_value())
+	menu.apartment_heist_player_cut(0, apartment:get_value())
+end)
 
 -- myTab:add_button("破解小游戏", function()
 --     menu.instant_mission_minigame_passed()
