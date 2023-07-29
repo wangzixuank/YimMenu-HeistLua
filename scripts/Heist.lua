@@ -1,4 +1,4 @@
--- v1.81 -- 感谢Alice和sch的指导
+-- v1.82 -- 感谢Alice和sch的指导
 local tabName = "Heist by wang"
 local myMainTab = gui.add_tab(tabName)
 -- local myTab = gui.get_tab(tabName)
@@ -406,7 +406,8 @@ end
 function getPlayerId()
     if mpx == "" then
         -- playerid = stats.stat_get_int("MPx_SCRIPT_INCREASE_STAM")
-        local playerid = menu.current_character_slot()
+        -- local playerid = menu.current_character_slot()
+        local playerid = stats.stat_get_int("MPPLY_LAST_MP_CHAR")
         -- local playerid = globals.get_int(1574918)
         mpx = "MP0_"
         if not playerid == 0 then 
