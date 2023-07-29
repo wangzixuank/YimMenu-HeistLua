@@ -1,4 +1,4 @@
--- v1.83 -- 感谢Alice和sch的指导
+-- v1.84 -- 感谢Alice和sch的指导
 local tabName = "Heist by wang"
 local myMainTab = gui.add_tab(tabName)
 -- local myTab = gui.get_tab(tabName)
@@ -346,16 +346,16 @@ end)
 
 function STAT_SET_INT(statName, value)
     getPlayerId()
-    stats.set_int(get_hash(mpx .. statName),value)
-    -- STATS.STAT_SET_INT(get_hash(mpx .. statName),value,true)
+    -- stats.set_int(get_hash(mpx .. statName),value)
+    STATS.STAT_SET_INT(get_hash(mpx .. statName),value,true)
 end
 
 function STAT_GET_INT(statName)
     getPlayerId()
-    -- local IntPTR = memory.allocate()
-    -- STATS.STAT_GET_INT(get_hash(mpx .. statName), IntPTR, -1)
-    -- return memory.ptr_to_handle(IntPTR)
-    return stats.stat_get_int(mpx .. statName)
+    local IntPTR = memory.allocate()
+    STATS.STAT_GET_INT(get_hash(mpx .. statName), IntPTR, -1)
+    return memory.ptr_to_handle(IntPTR)
+    -- return stats.get_int(mpx .. statName)
 end
 
 function SET_INT_LOCAL(script, script_local, value)
@@ -414,8 +414,9 @@ function getPlayerId()
     if mpx == "" then
         -- playerid = stats.stat_get_int("MPx_SCRIPT_INCREASE_STAM")
         -- local playerid = menu.current_character_slot()
-        -- local playerid = stats.stat_get_int("MPPLY_LAST_MP_CHAR")
-        local playerid = stats.get_character_index()
+        local playerid = STATS.STAT_GET_INT("MPPLY_LAST_MP_CHAR")
+        -- local playerid = stats.get_int("MPPLY_LAST_MP_CHAR")
+        -- local playerid = stats.get_character_index()
         -- local playerid = globals.get_int(1574918)
         mpx = "MP0_"
         if playerid == 1 then 
