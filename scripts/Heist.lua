@@ -1,11 +1,11 @@
--- v1.82 -- 感谢Alice和sch的指导
+-- v1.83 -- 感谢Alice和sch的指导
 local tabName = "Heist by wang"
 local myMainTab = gui.add_tab(tabName)
 -- local myTab = gui.get_tab(tabName)
 
 -- package.path = os.getenv("UserProfile").."/AppData/Roaming/YimMenu/scripts/?.lua"
-require("Alice-lib/lib")
-Alice = {}
+-- require("Alice-lib/lib")
+-- Alice = {}
 --""不能用就改为"MP0_"或者改为"MP1_"试一下
 local mpx = ""
 
@@ -261,6 +261,12 @@ myTab:add_button("设置全员分红", function()
 end)
 -- myTab:add_sameline()
 
+myTab:add_button("破解小游戏", function()
+    SET_INT_LOCAL("fm_mission_controller", 1509, 3)
+    SET_INT_LOCAL("fm_mission_controller", 1540, 2)
+    SET_INT_LOCAL("fm_mission_controller", 1266 + 135, 3)
+end)
+
 -- local domms_loop = myTab:add_checkbox("循环状态(用于关闭循环)")
 -- myTab:add_sameline()
 -- myTab:add_button("循环破解小游戏", function()
@@ -297,14 +303,14 @@ myTab:add_button("完成前置", function()
 end)
 
 myTab:add_separator()
-local apartment = myTab:add_input_int("分红")
-myTab:add_sameline()
-myTab:add_button("设置全员分红", function()
-    menu.apartment_heist_player_cut(1, apartment:get_value())
-	menu.apartment_heist_player_cut(2, apartment:get_value())
-	menu.apartment_heist_player_cut(3, apartment:get_value())
-	menu.apartment_heist_player_cut(0, apartment:get_value())
-end)
+-- local apartment = myTab:add_input_int("分红")
+-- myTab:add_sameline()
+-- myTab:add_button("设置全员分红", function()
+--     menu.apartment_heist_player_cut(1, apartment:get_value())
+-- 	menu.apartment_heist_player_cut(2, apartment:get_value())
+-- 	menu.apartment_heist_player_cut(3, apartment:get_value())
+-- 	menu.apartment_heist_player_cut(0, apartment:get_value())
+-- end)
 
 -- myTab:add_button("破解小游戏", function()
 --     menu.instant_mission_minigame_passed()
@@ -315,32 +321,33 @@ end)
 myMainTab:add_text("末日/赌场/公寓") 
 
 myMainTab:add_button("设置团队生命数100", function()
-    menu.instant_heist_team_life("fm_mission_controller", 100)
-    -- chk_script_host("fm_mission_controller")
-    -- SET_INT_LOCAL("fm_mission_controller", 26136 + 1325 + 1, 100)
+    -- menu.instant_heist_team_life("fm_mission_controller", 100)
+    chk_script_host("fm_mission_controller")
+    SET_INT_LOCAL("fm_mission_controller", 26136 + 1325 + 1, 100)
 end)
 
-local other_loop = myMainTab:add_checkbox("循环状态(用于关闭循环)")
-myMainTab:add_sameline()
-myMainTab:add_button("循环破解任务小游戏", function()
-    other_loop:set_enabled(true)
-    script.run_in_fiber(function (script)
-        while other_loop:is_enabled() do
-            menu.instant_mission_minigame_passed()
-            -- log.info("bbbb")
-            script:yield()
-            -- script:sleep(1000)
-        end
-        -- log.info("已停止破解小游戏")
-        gui.show_message("已停止破解小游戏")
-   end)
+-- local other_loop = myMainTab:add_checkbox("循环状态(用于关闭循环)")
+-- myMainTab:add_sameline()
+-- myMainTab:add_button("循环破解任务小游戏", function()
+--     other_loop:set_enabled(true)
+--     script.run_in_fiber(function (script)
+--         while other_loop:is_enabled() do
+--             menu.instant_mission_minigame_passed()
+--             -- log.info("bbbb")
+--             script:yield()
+--             -- script:sleep(1000)
+--         end
+--         -- log.info("已停止破解小游戏")
+--         gui.show_message("已停止破解小游戏")
+--    end)
     
-end)
+-- end)
 -----qita----end---
 
 function STAT_SET_INT(statName, value)
     getPlayerId()
-    STATS.STAT_SET_INT(get_hash(mpx .. statName),value,true)
+    stats.set_int(get_hash(mpx .. statName),value)
+    -- STATS.STAT_SET_INT(get_hash(mpx .. statName),value,true)
 end
 
 function STAT_GET_INT(statName)
@@ -407,10 +414,11 @@ function getPlayerId()
     if mpx == "" then
         -- playerid = stats.stat_get_int("MPx_SCRIPT_INCREASE_STAM")
         -- local playerid = menu.current_character_slot()
-        local playerid = stats.stat_get_int("MPPLY_LAST_MP_CHAR")
+        -- local playerid = stats.stat_get_int("MPPLY_LAST_MP_CHAR")
+        local playerid = stats.get_character_index()
         -- local playerid = globals.get_int(1574918)
         mpx = "MP0_"
-        if not playerid == 0 then 
+        if playerid == 1 then 
             mpx = "MP1_" 
         end
     end
