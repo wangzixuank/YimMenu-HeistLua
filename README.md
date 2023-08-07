@@ -3,7 +3,7 @@
 ![Heist](heist.png)
 ---------------------
 感谢Alice和sch的指导  
-dc分红计算器http://123.57.194.224/dc.html  
+dc分红计算器https://www.qinian.work/dc.html  
 关于封号问题请查看https://crazyzhang.cn/risk/  
 有问题或意见和建议请联系QQ：1217075605  
 或小助手Discord频道https://discord.gg/7GuNzajfhD  
