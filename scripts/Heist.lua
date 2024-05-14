@@ -1,4 +1,4 @@
--- v1.86 -- 感谢Alice和sch的指导
+-- v1.87 -- 感谢Alice和sch的指导
 local tabName = "Heist by wang"
 local myMainTab = gui.add_tab(tabName)
 -- local myTab = gui.get_tab(tabName)
@@ -176,7 +176,7 @@ myTab:add_sameline()
 
 local casino2Int = myTab:add_input_int("分红")
 casino2Int:set_value(480)
-local casino2 = myTab:add_button("全员480%分红", function()
+local casino2 = myTab:add_button("写入全员分红", function()
     SET_INT_GLOBAL(casinoCut + 1, casino2Int:get_value())
     SET_INT_GLOBAL(casinoCut + 2, casino2Int:get_value())
     SET_INT_GLOBAL(casinoCut + 3, casino2Int:get_value())
@@ -220,16 +220,6 @@ myTab:add_sameline()
 
 local casino5 = myTab:add_button("跳切割金库", function()
     SET_INT_LOCAL("fm_mission_controller", 10107 + 7, GET_INT_LOCAL("fm_mission_controller", 10107 + 37))
-end)
-
-
-local casino_cut = myTab:add_input_int("分红")
-myTab:add_sameline()
-myTab:add_button("写入全员分红", function()
-    SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 1, casino_cut:get_value())
-    SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 2, casino_cut:get_value())
-    SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 3, casino_cut:get_value())
-    SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 4, casino_cut:get_value())
 end)
 
 local casino_take = myTab:add_input_int("拿取金额")
