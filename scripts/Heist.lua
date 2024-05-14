@@ -10,7 +10,7 @@ local myMainTab = gui.add_tab(tabName)
 local mpx = ""
 
 local cayoCut=1970744 + 831 + 56
-local casinoCut=1970895 + 1497 + 736 + 92
+local casinoCut=1963945 + 1497 + 736 + 92
 local cahHacking1=52985
 local cahHacking2=54047
 local dommsCut=1966831 + 812 + 50
