@@ -1,4 +1,4 @@
--- v1.85 -- 感谢Alice和sch的指导
+-- v1.86 -- 感谢Alice和sch的指导
 local tabName = "Heist by wang"
 local myMainTab = gui.add_tab(tabName)
 -- local myTab = gui.get_tab(tabName)
@@ -9,7 +9,7 @@ local myMainTab = gui.add_tab(tabName)
 --""不能用就改为"MP0_"或者改为"MP1_"试一下
 local mpx = ""
 
-local cayoCut=1977693 + 823 + 56
+local cayoCut=1970744 + 831 + 56
 local casinoCut=1970895 + 1497 + 736 + 92
 local cahHacking1=52985
 local cahHacking2=54047
