@@ -1,4 +1,4 @@
--- v1.84 -- 感谢Alice和sch的指导
+-- v1.85 -- 感谢Alice和sch的指导
 local tabName = "Heist by wang"
 local myMainTab = gui.add_tab(tabName)
 -- local myTab = gui.get_tab(tabName)
@@ -8,6 +8,13 @@ local myMainTab = gui.add_tab(tabName)
 -- Alice = {}
 --""不能用就改为"MP0_"或者改为"MP1_"试一下
 local mpx = ""
+
+local cayoCut=1977693 + 823 + 56
+local casinoCut=1970895 + 1497 + 736 + 92
+local cahHacking1=52985
+local cahHacking2=54047
+local dommsCut=1966831 + 812 + 50
+local fm_life=26154 + 1325 + 1
 
 
 local now_tab = 'Cayo Heist'
@@ -22,11 +29,35 @@ local myTab = gui.get_tab(now_tab)
 ----Cayo----start
 myTab:add_text("佩岛") 
 local Cayo1 = myTab:add_button("完成佩岛前置", function()
-    STAT_SET_INT("H4_PROGRESS", 131055)
-    STAT_SET_INT("H4CNF_TARGET", 5)
     STAT_SET_INT("H4_MISSIONS", -1)
     STAT_SET_INT("H4CNF_APPROACH", -1)
+    STAT_SET_INT("H4CNF_TARGET", 5)
     STAT_SET_INT("H4CNF_BS_ENTR", 63)
+    STAT_SET_INT("H4CNF_BS_GEN", 63)
+    STAT_SET_INT("H4CNF_WEAPONS", 1)
+    STAT_SET_INT("H4_PROGRESS", 131055)
+    --次要目标
+    STAT_SET_INT("H4LOOT_CASH_C", 0)
+    STAT_SET_INT("H4LOOT_CASH_V", 0)
+    STAT_SET_INT("H4LOOT_WEED_C", 0)
+    STAT_SET_INT("H4LOOT_WEED_V", 0)
+    STAT_SET_INT("H4LOOT_COKE_C", 0)
+    STAT_SET_INT("H4LOOT_COKE_V", 0)
+
+    STAT_SET_INT("H4LOOT_GOLD_I", -1)
+    STAT_SET_INT("H4LOOT_GOLD_I_SCOPED", -1)
+    STAT_SET_INT("H4LOOT_GOLD_C", -1)
+    STAT_SET_INT("H4LOOT_GOLD_V", 320000)
+    STAT_SET_INT("H4LOOT_GOLD_C_SCOPED", -1)
+
+    STAT_SET_INT("H4LOOT_PAINT", -1)
+    STAT_SET_INT("H4LOOT_PAINT_SCOPED", -1)
+    STAT_SET_INT("H4LOOT_PAINT_V", 180000)
+    STAT_SET_INT("H4LOOT_CASH_C_SCOPED", 0)
+    STAT_SET_INT("H4LOOT_WEED_C_SCOPED", 0)
+    STAT_SET_INT("H4LOOT_COKE_C_SCOPED", 0)
+    --次要目标---endold 1526+18
+    SET_INT_LOCAL("heist_island_planning", 1544, 2)
     -- STAT_SET_INT("H4CNF_BS_GEN", 63)
     gui.show_message("写入完成", "远离计划面板并重新接近以刷新面板")
 end)
@@ -34,7 +65,7 @@ end)
 myTab:add_sameline()
 
 local Cayo2 = myTab:add_button("呼叫虎鲸", function()
-    globals.set_int(2794162 + 960, 1)
+    globals.set_int(2738587 + 960, 1)
 end)
 
 myTab:add_sameline()
@@ -53,11 +84,13 @@ end)
 myTab:add_sameline()
 
 -- 使用标签页对象的add_button函数创建一个按钮
-local Cayo4 = myTab:add_button("佩岛全员135分红", function()
-    globals.set_int(1978495 + 825 + 56 + 1, 135)
-    globals.set_int(1978495 + 825 + 56 + 2, 135)
-    globals.set_int(1978495 + 825 + 56 + 3, 135)
-    globals.set_int(1978495 + 825 + 56 + 4, 135)
+local Cayo4Int = myTab:add_input_int("分红")
+Cayo4Int:set_value(135)
+local Cayo4 = myTab:add_button("写入全员分红", function()
+    globals.set_int(cayoCut + 1, Cayo4Int:get_value())
+    globals.set_int(cayoCut + 2, Cayo4Int:get_value())
+    globals.set_int(cayoCut + 3, Cayo4Int:get_value())
+    globals.set_int(cayoCut + 4, Cayo4Int:get_value())
 end)
 
 myTab:add_sameline()
@@ -76,9 +109,9 @@ end)
 myTab:add_sameline()
 
 local Cayo7 = myTab:add_button("快速切割", function()
-    SET_FLOAT_LOCAL("fm_mission_controller_2020", 29685 + 3, 100)
+    SET_FLOAT_LOCAL("fm_mission_controller_2020", 30357 + 3, 100)
 end, function()
-    SET_FLOAT_LOCAL("fm_mission_controller_2020", 29685 + 3, 0)
+    SET_FLOAT_LOCAL("fm_mission_controller_2020", 30357 + 3, 0)
 end)
 
 myTab:add_sameline()
@@ -141,11 +174,13 @@ end)
 
 myTab:add_sameline()
 
+local casino2Int = myTab:add_input_int("分红")
+casino2Int:set_value(480)
 local casino2 = myTab:add_button("全员480%分红", function()
-    SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 1, 480)
-    SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 2, 480)
-    SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 3, 480)
-    SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 4, 480)
+    SET_INT_GLOBAL(casinoCut + 1, casino2Int:get_value())
+    SET_INT_GLOBAL(casinoCut + 2, casino2Int:get_value())
+    SET_INT_GLOBAL(casinoCut + 3, casino2Int:get_value())
+    SET_INT_GLOBAL(casinoCut + 4, casino2Int:get_value())
     --设置面板
     -- setBuyer(3)
     -- setEntrance(11)
@@ -155,7 +190,7 @@ end)
 
 myTab:add_sameline()
 
-local Cayo6 = myTab:add_button("传送到下水道", function()
+myTab:add_button("传送到下水道", function()
     TELEPORT(1034.9442, -271.90024, 50.37195)
     SET_HEADING(28)
 end)
@@ -163,7 +198,7 @@ end)
 
 myTab:add_button("一键拿取113w", function()
     chk_script_host("fm_mission_controller")
-    SET_INT_LOCAL("fm_mission_controller", 19710 + 2686, 1136360)
+    SET_INT_LOCAL("fm_mission_controller", 19728 + 2686, 1136360)
 end)
 myTab:add_sameline()
 
@@ -173,24 +208,24 @@ end)
 myTab:add_sameline()
 
 local casino4 = myTab:add_button("跳指纹/密码锁", function()
-    if GET_INT_LOCAL("fm_mission_controller", 52964) ~= 1 then
-        SET_INT_LOCAL("fm_mission_controller", 52964, 5)
+    if GET_INT_LOCAL("fm_mission_controller", cahHacking1) ~= 1 then
+        SET_INT_LOCAL("fm_mission_controller", cahHacking1, 5)
     end
-    if GET_INT_LOCAL("fm_mission_controller", 54026) ~= 1 then
-        SET_INT_LOCAL("fm_mission_controller", 54026, 5)
+    if GET_INT_LOCAL("fm_mission_controller", cahHacking2) ~= 1 then
+        SET_INT_LOCAL("fm_mission_controller", cahHacking2, 5)
     end
 end)
 
 myTab:add_sameline()
 
 local casino5 = myTab:add_button("跳切割金库", function()
-    SET_INT_LOCAL("fm_mission_controller", 10101 + 7, GET_INT_LOCAL("fm_mission_controller", 10101 + 37))
+    SET_INT_LOCAL("fm_mission_controller", 10107 + 7, GET_INT_LOCAL("fm_mission_controller", 10107 + 37))
 end)
 
 
 local casino_cut = myTab:add_input_int("分红")
 myTab:add_sameline()
-myTab:add_button("设置全员分红", function()
+myTab:add_button("写入全员分红", function()
     SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 1, casino_cut:get_value())
     SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 2, casino_cut:get_value())
     SET_INT_GLOBAL(1971696 + 1497 + 736 + 92 + 3, casino_cut:get_value())
@@ -199,9 +234,9 @@ end)
 
 local casino_take = myTab:add_input_int("拿取金额")
 myTab:add_sameline()
-myTab:add_button("设置拿取金额", function()
+myTab:add_button("写入拿取金额", function()
     chk_script_host("fm_mission_controller")
-    SET_INT_LOCAL("fm_mission_controller", 19710 + 2686, casino_take:get_value())
+    SET_INT_LOCAL("fm_mission_controller", 19728 + 2686, casino_take:get_value())
 end)
 ----casino----end--------------------------------
 
@@ -253,18 +288,18 @@ end)
 
 local domms = myTab:add_input_int("分红")
 myTab:add_sameline()
-myTab:add_button("设置全员分红", function()
-    SET_INT_GLOBAL(1967630 + 812 + 50 + 1, domms:get_value())
-    SET_INT_GLOBAL(1967630 + 812 + 50 + 2, domms:get_value())
-    SET_INT_GLOBAL(1967630 + 812 + 50 + 3, domms:get_value())
-    SET_INT_GLOBAL(1967630 + 812 + 50 + 4, domms:get_value())
+myTab:add_button("写入全员分红", function()
+    SET_INT_GLOBAL(dommsCut + 1, domms:get_value())
+    SET_INT_GLOBAL(dommsCut + 2, domms:get_value())
+    SET_INT_GLOBAL(dommsCut + 3, domms:get_value())
+    SET_INT_GLOBAL(dommsCut + 4, domms:get_value())
 end)
 -- myTab:add_sameline()
 
 myTab:add_button("破解小游戏", function()
-    SET_INT_LOCAL("fm_mission_controller", 1509, 3)
-    SET_INT_LOCAL("fm_mission_controller", 1540, 2)
-    SET_INT_LOCAL("fm_mission_controller", 1266 + 135, 3)
+    SET_INT_LOCAL("fm_mission_controller", 1512, 3)
+    SET_INT_LOCAL("fm_mission_controller", 1543, 2)
+    SET_INT_LOCAL("fm_mission_controller", 1269 + 135, 3)---==2
 end)
 
 -- local domms_loop = myTab:add_checkbox("循环状态(用于关闭循环)")
@@ -323,7 +358,7 @@ myMainTab:add_text("末日/赌场/公寓")
 myMainTab:add_button("设置团队生命数100", function()
     -- menu.instant_heist_team_life("fm_mission_controller", 100)
     chk_script_host("fm_mission_controller")
-    SET_INT_LOCAL("fm_mission_controller", 26136 + 1325 + 1, 100)
+    SET_INT_LOCAL("fm_mission_controller", fm_life, 100)
 end)
 
 -- local other_loop = myMainTab:add_checkbox("循环状态(用于关闭循环)")
@@ -345,17 +380,18 @@ end)
 -----qita----end---
 
 function STAT_SET_INT(statName, value)
-    getPlayerId()
+    -- getPlayerId()
     -- stats.set_int(get_hash(mpx .. statName),value)
-    STATS.STAT_SET_INT(get_hash(mpx .. statName),value,true)
+    stats.set_int("MPX_".. statName,value)
+    -- STATS.STAT_SET_INT(get_hash(mpx .. statName),value,true)
 end
 
 function STAT_GET_INT(statName)
-    getPlayerId()
-    local IntPTR = memory.allocate()
-    STATS.STAT_GET_INT(get_hash(mpx .. statName), IntPTR, -1)
-    return memory.ptr_to_handle(IntPTR)
-    -- return stats.get_int(mpx .. statName)
+    -- getPlayerId()
+    -- local IntPTR = memory.allocate()
+    -- STATS.STAT_GET_INT(get_hash(mpx .. statName), IntPTR, -1)
+    -- return memory.ptr_to_handle(IntPTR)
+    return stats.get_int("MPX_".. statName)
 end
 
 function SET_INT_LOCAL(script, script_local, value)
@@ -433,10 +469,11 @@ end
 
 -- fm_mission_controller_2020=Cayo/Tuners/ULP/Agency;fm_mission_controller=Casino/Doomsday/Classic
 function chk_script_host(scriptname)
-    if NETWORK.NETWORK_GET_HOST_OF_SCRIPT(scriptname, 0, 0) == PLAYER.PLAYER_ID() then return end
     network.force_script_host(scriptname)
-    repeat script_util:yield() until NETWORK.NETWORK_GET_HOST_OF_SCRIPT(scriptname, 0, 0) == PLAYER.PLAYER_ID()
-    gui.show_message("已成为".. scriptname .. "脚本主机")
+    -- if NETWORK.NETWORK_GET_HOST_OF_SCRIPT(scriptname, 0, 0) == PLAYER.PLAYER_ID() then return end
+    -- network.force_script_host(scriptname)
+    -- repeat script_util:yield() until NETWORK.NETWORK_GET_HOST_OF_SCRIPT(scriptname, 0, 0) == PLAYER.PLAYER_ID()
+    -- gui.show_message("已成为".. scriptname .. "脚本主机")
 end
 
 function SET_INT_GLOBAL(int,value)
