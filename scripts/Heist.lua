@@ -1,4 +1,4 @@
--- v1.87 -- 感谢Alice和sch的指导
+-- v1.88 -- 感谢crazyzhang、Alice和sch的指导
 local tabName = "Heist by wang"
 local myMainTab = gui.add_tab(tabName)
 -- local myTab = gui.get_tab(tabName)
@@ -9,13 +9,23 @@ local myMainTab = gui.add_tab(tabName)
 --""不能用就改为"MP0_"或者改为"MP1_"试一下
 local mpx = ""
 
-local cayoCut=1970744 + 831 + 56
-local casinoCut=1963945 + 1497 + 736 + 92
-local cahHacking1=52985
-local cahHacking2=54047
-local dommsCut=1959865 + 812 + 50
-local fm_life=26154 + 1325 + 1
-
+g_fmfirst = 19746
+local cayoCut = 1971648 + 831 + 56
+local casinoCut = 1964849 + 1497 + 736 + 92
+local cahHacking1 = 53019
+local cahHacking2 = 54085
+local dommsCut = 1960755 + 812 + 50
+local fm_life = g_fmfirst + 1765 + 1
+local apartmentMyCut = 1930926 + 3008
+local apartmentCut = 1928958 + 1
+g_peidaoBoli = 30939 + 3
+casinoTakeInt = g_fmfirst + 2686
+g_zuankong = 10109
+dczuankong = g_zuankong + 7
+dczuankongget = g_zuankong + 37
+doomsdayHack1=1271 + 135    --- ac3
+doomsdayAC1Server=1514
+doomsdayHack2=1545
 
 local now_tab = 'Cayo Heist'
 myMainTab:add_tab(now_tab)
@@ -27,7 +37,7 @@ local myTab = gui.get_tab(now_tab)
 --     log.info(mpx)
 -- end)
 ----Cayo----start
-myTab:add_text("佩岛") 
+myTab:add_text("佩岛")
 local Cayo1 = myTab:add_button("完成佩岛前置", function()
     STAT_SET_INT("H4_MISSIONS", -1)
     STAT_SET_INT("H4CNF_APPROACH", -1)
@@ -75,9 +85,9 @@ local Cayo3 = myTab:add_button("传到虎鲸内", function()
     -- TELEPORT(-619.987, 282.960, 81.639)
     -- if STAT_GET_INT("IH_SUB_OWNED") == 0 then
     -- else
-        TELEPORT(1561.2369, 385.8771, -49.689915)
-        SET_HEADING(175)
-        -- STAT_SET_INT("H4_PROGRESS", 131055)
+    TELEPORT(1561.2369, 385.8771, -49.689915)
+    SET_HEADING(175)
+    -- STAT_SET_INT("H4_PROGRESS", 131055)
     -- end
 end)
 
@@ -109,9 +119,9 @@ end)
 myTab:add_sameline()
 
 local Cayo7 = myTab:add_button("快速切割", function()
-    SET_FLOAT_LOCAL("fm_mission_controller_2020", 30357 + 3, 100)
+    SET_FLOAT_LOCAL("fm_mission_controller_2020", g_peidaoBoli, 100)
 end, function()
-    SET_FLOAT_LOCAL("fm_mission_controller_2020", 30357 + 3, 0)
+    SET_FLOAT_LOCAL("fm_mission_controller_2020", g_peidaoBoli, 0)
 end)
 
 myTab:add_sameline()
@@ -141,7 +151,7 @@ now_tab = 'Casino Heist'
 myMainTab:add_tab(now_tab)
 myTab = gui.get_tab(now_tab)
 -- myTab:add_separator()
-myTab:add_text("赌场") 
+myTab:add_text("赌场")
 
 local casino10 = myTab:add_button("游戏厅前门口", function()
     TELEPORT(-619.987, 282.960, 81.639)
@@ -161,9 +171,9 @@ local casino1 = myTab:add_button("完成气势汹汹前置", function()
     STAT_SET_INT("H3OPT_TARGET", 3)
     STAT_SET_INT("H3OPT_POI", 1023)
     STAT_SET_INT("H3OPT_ACCESSPOINTS", 2047)
-    STAT_SET_INT("H3OPT_CREWWEAP", 4)--枪手10%
-    STAT_SET_INT("H3OPT_CREWDRIVER", 3)--车手9%
-    STAT_SET_INT("H3OPT_CREWHACKER", 4)--黑客10%
+    STAT_SET_INT("H3OPT_CREWWEAP", 4)   --枪手10%
+    STAT_SET_INT("H3OPT_CREWDRIVER", 3) --车手9%
+    STAT_SET_INT("H3OPT_CREWHACKER", 4) --黑客10%
     STAT_SET_INT("H3OPT_DISRUPTSHIP", 3)
     STAT_SET_INT("H3OPT_BODYARMORLVL", -1)
     STAT_SET_INT("H3OPT_KEYLEVELS", 2)
@@ -198,7 +208,7 @@ end)
 
 myTab:add_button("一键拿取113w", function()
     chk_script_host("fm_mission_controller")
-    SET_INT_LOCAL("fm_mission_controller", 19728 + 2686, 1136360)
+    SET_INT_LOCAL("fm_mission_controller", casinoTakeInt, 1136360)
 end)
 myTab:add_sameline()
 
@@ -219,14 +229,14 @@ end)
 myTab:add_sameline()
 
 local casino5 = myTab:add_button("跳切割金库", function()
-    SET_INT_LOCAL("fm_mission_controller", 10107 + 7, GET_INT_LOCAL("fm_mission_controller", 10107 + 37))
+    SET_INT_LOCAL("fm_mission_controller", dczuankong, GET_INT_LOCAL("fm_mission_controller", dczuankongget))
 end)
 
 local casino_take = myTab:add_input_int("拿取金额")
 myTab:add_sameline()
 myTab:add_button("写入拿取金额", function()
     chk_script_host("fm_mission_controller")
-    SET_INT_LOCAL("fm_mission_controller", 19728 + 2686, casino_take:get_value())
+    SET_INT_LOCAL("fm_mission_controller", casinoTakeInt, casino_take:get_value())
 end)
 ----casino----end--------------------------------
 
@@ -235,7 +245,7 @@ now_tab = 'Domms Heist'
 myMainTab:add_tab(now_tab)
 myTab = gui.get_tab(now_tab)
 -- myTab:add_separator()
-myTab:add_text("末日") 
+myTab:add_text("末日")
 
 myTab:add_button("完成末日一前置", function()
     STAT_SET_INT("GANGOPS_FLOW_MISSION_PROG", 503)
@@ -263,16 +273,15 @@ myTab:add_sameline()
 myTab:add_button("设施计划屏幕", function()
     local PlayerPos = ENTITY.GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(PLAYER.PLAYER_PED_ID(), 0.0, 0.52, 0.0)
     local intr = INTERIOR.GET_INTERIOR_AT_COORDS(PlayerPos.x, PlayerPos.y, PlayerPos.z)
-    if intr == 269313 then 
+    if intr == 269313 then
         if HUD.DOES_BLIP_EXIST(HUD.GET_FIRST_BLIP_INFO_ID(428)) then
             TELEPORT(350.69284, 4872.308, -60.794243)
             SET_HEADING(-50)
         end
     else
-        gui.show_message("确保自己在设施内","请先进入设施再传送到计划屏幕")
+        gui.show_message("确保自己在设施内", "请先进入设施再传送到计划屏幕")
         tpfac()
     end
-    
 end)
 -- myTab:add_sameline()
 
@@ -287,9 +296,9 @@ end)
 -- myTab:add_sameline()
 
 myTab:add_button("破解小游戏", function()
-    SET_INT_LOCAL("fm_mission_controller", 1512, 3)
-    SET_INT_LOCAL("fm_mission_controller", 1543, 2)
-    SET_INT_LOCAL("fm_mission_controller", 1269 + 135, 3)---==2
+    SET_INT_LOCAL("fm_mission_controller", doomsdayAC1Server, 3)
+    SET_INT_LOCAL("fm_mission_controller", doomsdayHack2, 2)
+    SET_INT_LOCAL("fm_mission_controller", doomsdayHack1, 3) ---==2
 end)
 
 -- local domms_loop = myTab:add_checkbox("循环状态(用于关闭循环)")
@@ -308,7 +317,7 @@ end)
 --         log.info("已停止破解末日小游戏")
 --         gui.show_message("已停止","已停止破解末日小游戏")
 --    end)
-    
+
 -- end)
 ----domms----end-------------------------------------
 
@@ -317,7 +326,7 @@ end)
 now_tab = 'Apartment Heist'
 myMainTab:add_tab(now_tab)
 myTab = gui.get_tab(now_tab)
-myTab:add_text("公寓") 
+myTab:add_text("公寓")
 myTab:add_button("传到公寓", function()
     TELEPORT(-775.6636, 309.19543, 85.69813)
     SET_HEADING(11)
@@ -328,14 +337,20 @@ myTab:add_button("完成前置", function()
 end)
 
 myTab:add_separator()
--- local apartment = myTab:add_input_int("分红")
--- myTab:add_sameline()
--- myTab:add_button("设置全员分红", function()
---     menu.apartment_heist_player_cut(1, apartment:get_value())
--- 	menu.apartment_heist_player_cut(2, apartment:get_value())
--- 	menu.apartment_heist_player_cut(3, apartment:get_value())
--- 	menu.apartment_heist_player_cut(0, apartment:get_value())
--- end)
+local apartment = myTab:add_input_int("分红")
+myTab:add_sameline()
+myTab:add_button("设置全员分红", function()
+    network.force_script_host("freemode")
+    local ren = 3
+    local apartment_HOST_CUT1 = apartment:get_value()
+    local fushu = (-1 * ren * apartment_HOST_CUT1) + 100
+    SET_INT_GLOBAL(apartmentCut + 1, fushu)
+    SET_INT_GLOBAL(apartmentCut + 2, apartment_HOST_CUT1)
+    SET_INT_GLOBAL(apartmentCut + 3, apartment_HOST_CUT1)
+    SET_INT_GLOBAL(apartmentCut + 4, apartment_HOST_CUT1)
+    script:sleep(500)
+    SET_INT_GLOBAL(apartmentMyCut + 1, apartment_HOST_CUT1)
+end)
 
 -- myTab:add_button("破解小游戏", function()
 --     menu.instant_mission_minigame_passed()
@@ -343,7 +358,7 @@ myTab:add_separator()
 
 -----apartment------------------end
 
-myMainTab:add_text("末日/赌场/公寓") 
+myMainTab:add_text("末日/赌场/公寓")
 
 myMainTab:add_button("设置团队生命数100", function()
     -- menu.instant_heist_team_life("fm_mission_controller", 100)
@@ -365,14 +380,14 @@ end)
 --         -- log.info("已停止破解小游戏")
 --         gui.show_message("已停止破解小游戏")
 --    end)
-    
+
 -- end)
 -----qita----end---
 
 function STAT_SET_INT(statName, value)
     -- getPlayerId()
     -- stats.set_int(get_hash(mpx .. statName),value)
-    stats.set_int("MPX_".. statName,value)
+    stats.set_int("MPX_" .. statName, value)
     -- STATS.STAT_SET_INT(get_hash(mpx .. statName),value,true)
 end
 
@@ -381,7 +396,7 @@ function STAT_GET_INT(statName)
     -- local IntPTR = memory.allocate()
     -- STATS.STAT_GET_INT(get_hash(mpx .. statName), IntPTR, -1)
     -- return memory.ptr_to_handle(IntPTR)
-    return stats.get_int("MPX_".. statName)
+    return stats.get_int("MPX_" .. statName)
 end
 
 function SET_INT_LOCAL(script, script_local, value)
@@ -414,7 +429,7 @@ function GET_PLAYER_PED_ID()
 end
 
 function spawn(name)
-    command.call("spawn", {get_hash(name)})
+    command.call("spawn", { get_hash(name) })
     -- pc = ENTITY.GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(GET_PLAYER_PED_ID(), 0, 5.0, 0);
     -- v = vehicle.create_vehicle(name, {pc.x, pc.y, pc.z}, true)
     -- gui.show_message("刷车中")
@@ -445,15 +460,15 @@ function getPlayerId()
         -- local playerid = stats.get_character_index()
         -- local playerid = globals.get_int(1574918)
         mpx = "MP0_"
-        if playerid == 1 then 
-            mpx = "MP1_" 
+        if playerid == 1 then
+            mpx = "MP1_"
         end
     end
     -- PlayerIndex = menu.current_character_slot()
-    -- if PlayerIndex == 0 then 
-    --     mpx = "MP0_" 
-    -- else 
-    --     mpx = "MP1_" 
+    -- if PlayerIndex == 0 then
+    --     mpx = "MP0_"
+    -- else
+    --     mpx = "MP1_"
     -- end
 end
 
@@ -466,7 +481,7 @@ function chk_script_host(scriptname)
     -- gui.show_message("已成为".. scriptname .. "脚本主机")
 end
 
-function SET_INT_GLOBAL(int,value)
+function SET_INT_GLOBAL(int, value)
     globals.set_int(int, value)
 end
 
@@ -485,6 +500,7 @@ function setBuyer(index)
     if not NETWORK.NETWORK_IS_SESSION_STARTED() then return end
     SET_INT_GLOBAL(1971696 + 1497 + 1019, (index * 3) - 3)
 end
+
 ----dc--end
 
 function myYield(ms)
