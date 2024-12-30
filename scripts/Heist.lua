@@ -1,4 +1,4 @@
--- v1.88 -- 感谢crazyzhang、Alice和sch的指导
+-- v1.89 -- 感谢crazyzhang、Alice和sch的指导； 更新佩岛和dc
 local tabName = "Heist by wang"
 local myMainTab = gui.add_tab(tabName)
 -- local myTab = gui.get_tab(tabName)
@@ -9,23 +9,24 @@ local myMainTab = gui.add_tab(tabName)
 --""不能用就改为"MP0_"或者改为"MP1_"试一下
 local mpx = ""
 
-g_fmfirst = 19746
-local cayoCut = 1971648 + 831 + 56
-local casinoCut = 1964849 + 1497 + 736 + 92
-local cahHacking1 = 53019
-local cahHacking2 = 54085
+g_fmfirst = 19781
+local cayoCut = 1972414 + 831 + 56
+local casinoCut = 1965614 + 1497 + 736 + 92
+local cahHacking1 = 53087
+local cahHacking2 = 54153
 local dommsCut = 1960755 + 812 + 50
 local fm_life = g_fmfirst + 1765 + 1
-local apartmentMyCut = 1930926 + 3008
-local apartmentCut = 1928958 + 1
-g_peidaoBoli = 30939 + 3
+local apartmentMyCut = 1931285 + 3008
+local apartmentCut = 1929317 + 1
+g_peidaoBoli = 31049 + 3
 casinoTakeInt = g_fmfirst + 2686
-g_zuankong = 10109
+g_zuankong = 10143
 dczuankong = g_zuankong + 7
 dczuankongget = g_zuankong + 37
 doomsdayHack1=1271 + 135    --- ac3
 doomsdayAC1Server=1514
 doomsdayHack2=1545
+g_callkoh=2739811 + 991
 
 local now_tab = 'Cayo Heist'
 myMainTab:add_tab(now_tab)
@@ -75,7 +76,7 @@ end)
 myTab:add_sameline()
 
 local Cayo2 = myTab:add_button("呼叫虎鲸", function()
-    globals.set_int(2738587 + 960, 1)
+    globals.set_int(g_callkoh, 1)
 end)
 
 myTab:add_sameline()
