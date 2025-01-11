@@ -1,5 +1,5 @@
--- v1.89 -- 感谢crazyzhang、Alice和sch的指导； 更新佩岛和dc
-local tabName = "Heist by wang"
+-- v1.89 -- 感谢crazyzhang、Alice和sch的指导； 更新佩岛和dc，修正末日
+local tabName = "RS Heist by wang--------------"
 local myMainTab = gui.add_tab(tabName)
 -- local myTab = gui.get_tab(tabName)
 
@@ -14,7 +14,7 @@ local cayoCut = 1972414 + 831 + 56
 local casinoCut = 1965614 + 1497 + 736 + 92
 local cahHacking1 = 53087
 local cahHacking2 = 54153
-local dommsCut = 1960755 + 812 + 50
+local dommsCut = 1961513 + 812 + 50
 local fm_life = g_fmfirst + 1765 + 1
 local apartmentMyCut = 1931285 + 3008
 local apartmentCut = 1929317 + 1
@@ -28,7 +28,7 @@ doomsdayAC1Server=1514
 doomsdayHack2=1545
 g_callkoh=2739811 + 991
 
-local now_tab = 'Cayo Heist'
+local now_tab = '快速上岛'
 myMainTab:add_tab(now_tab)
 local myTab = gui.get_tab(now_tab)
 -- myTab:add_separator()
@@ -91,12 +91,13 @@ local Cayo3 = myTab:add_button("传到虎鲸内", function()
     -- STAT_SET_INT("H4_PROGRESS", 131055)
     -- end
 end)
-
-myTab:add_sameline()
+myTab:add_text("呼叫虎鲸之后大约2秒才能看到虎鲸，直接传送会进入虚空")
+myTab:add_text("建议先打开地图传送到虎鲸顶上，虎鲸浮上来之后再传送进虎鲸内")
+-- myTab:add_sameline()
 
 -- 使用标签页对象的add_button函数创建一个按钮
 local Cayo4Int = myTab:add_input_int("分红")
-Cayo4Int:set_value(135)
+Cayo4Int:set_value(138)
 local Cayo4 = myTab:add_button("写入全员分红", function()
     globals.set_int(cayoCut + 1, Cayo4Int:get_value())
     globals.set_int(cayoCut + 2, Cayo4Int:get_value())
@@ -104,22 +105,41 @@ local Cayo4 = myTab:add_button("写入全员分红", function()
     globals.set_int(cayoCut + 4, Cayo4Int:get_value())
 end)
 
-myTab:add_sameline()
+myTab:add_separator()
 
-local Cayo5 = myTab:add_button("传到大门", function()
-    TELEPORT(4974.189, -5703.279, 19.898539)
+local Cayo5 = myTab:add_button("传到大门外入口", function()
+    TELEPORT(4980.89843, -5709.42724, 20.00694)
+	SET_HEADING(220)
 end)
 
 myTab:add_sameline()
 
-local Cayo6 = myTab:add_button("传到主目标", function()
-    TELEPORT(5006.7, -5756.2, 14.8)
+local Cayo6 = myTab:add_button("传到排水口切栅栏", function()
+    TELEPORT(5043.79882, -5815.15039, -11.01647)
+	SET_HEADING(45)
+end)
+
+myTab:add_sameline()
+
+local Cayo7 = myTab:add_button("传到排水口入侵点", function()
+    TELEPORT(5053.44384, -5772.10791, -4.80793)
+	SET_HEADING(45)
+end)
+
+local Cayo8 = myTab:add_button("传到金发办公室", function()
+    TELEPORT(5011.18359, -5757.16113, 29.00798)
+end)
+
+myTab:add_sameline()
+
+local Cayo9 = myTab:add_button("传到主目标", function()
+    TELEPORT(5006.7, -5756.2, 15.49)
     SET_HEADING(145)
 end)
 
 myTab:add_sameline()
 
-local Cayo7 = myTab:add_button("快速切割", function()
+local Cayo10 = myTab:add_button("快速切割", function()
     SET_FLOAT_LOCAL("fm_mission_controller_2020", g_peidaoBoli, 100)
 end, function()
     SET_FLOAT_LOCAL("fm_mission_controller_2020", g_peidaoBoli, 0)
@@ -127,38 +147,39 @@ end)
 
 myTab:add_sameline()
 
-local Cayo8 = myTab:add_button("传到大门出口", function()
-    TELEPORT(4990.0386, -5717.6895, 19.880217)
+local Cayo11 = myTab:add_button("传到排水口起始位", function()
+    TELEPORT(5065.49511, -5780.29248, 12.00318)
+end)
+
+myTab:add_separator()
+
+local Cayo12 = myTab:add_button("传到大门出口", function()
+    TELEPORT(4990.0386, -5717.6895, 19.8802)
     SET_HEADING(50)
 end)
 
 myTab:add_sameline()
 
-local Cayo80 = myTab:add_button("生成图拉尔多", function()
+local Cayo13 = myTab:add_button("生成图拉尔多", function()
     spawn("TOREADOR")
 end)
 
 myTab:add_sameline()
 
-local Cayo9 = myTab:add_button("传到海里", function()
-    TELEPORT(4771.479, -6165.737, -39.079613)
+local Cayo14 = myTab:add_button("传到海里", function()
+    TELEPORT(4789.7724, -6196.4208, -41.6791)
+	SET_HEADING(180)
 end)
 
 ----Cayo----end--------------------------------------------------------
 
 
 ----casino----start
-now_tab = 'Casino Heist'
+now_tab = '快速赌场'
 myMainTab:add_tab(now_tab)
 myTab = gui.get_tab(now_tab)
 -- myTab:add_separator()
 myTab:add_text("赌场")
-
-local casino10 = myTab:add_button("游戏厅前门口", function()
-    TELEPORT(-619.987, 282.960, 81.639)
-end)
-
-myTab:add_sameline()
 
 local casino1 = myTab:add_button("完成气势汹汹前置", function()
     STAT_SET_INT("H3_COMPLETEDPOSIX", -1)
@@ -183,10 +204,60 @@ local casino1 = myTab:add_button("完成气势汹汹前置", function()
     gui.show_message("写入完成")
 end)
 
+myTab:add_text("赌场-游戏厅按照价格排序分为1-6，进入游戏厅后才能传送到分红黑板前")
+
+local casino10 = myTab:add_button("游戏厅后门1-日蚀", function()
+    TELEPORT(-617.82421, 285.82482, 81.98642)
+end)
+
 myTab:add_sameline()
 
+local casino11 = myTab:add_button("游戏厅后门2-服装厂", function()
+    TELEPORT(726.66656, -822.47216, 25.15634)
+end)
+
+myTab:add_sameline()
+
+local casino12 = myTab:add_button("游戏厅后门3-高尔夫球场", function()
+    TELEPORT(-1287.04098, -277.90896, 38.95561)
+end)
+
+local casino13 = myTab:add_button("游戏厅后门4-竞技场", function()
+    TELEPORT(-105.43507, -1778.11653, 30.12231)
+end)
+
+myTab:add_sameline()
+
+local casino14 = myTab:add_button("游戏厅后门5-崔佛机场", function()
+    TELEPORT(1710.76477, 4760.21923, 42.34999)
+end)
+
+myTab:add_sameline()
+
+local casino15 = myTab:add_button("游戏厅后门6-佩立托湾", function()
+    TELEPORT(-237.14082, 6228.43115, 31.80187)
+end)
+
+-- myTab:add_sameline()
+
+myTab:add_button("传送到保险箱", function()
+    TELEPORT(2728.47583, -374.31631, -47.39296)
+    SET_HEADING(280)
+end)
+
+myTab:add_sameline()
+
+myTab:add_button("传送到分红黑板", function()
+    TELEPORT(2712.83618, -372.31698, -54.78091)
+    SET_HEADING(160)
+end)
+-- SET_HEADING(0) 这个是控制视角方向的，0为地图正北方向,90为正西方向,180正南,270正东,按P打开地图，上北下南左西右东
+
+myTab:add_separator()
+
 local casino2Int = myTab:add_input_int("分红")
-casino2Int:set_value(480)
+casino2Int:set_value(165)
+-- myTab:add_sameline()
 local casino2 = myTab:add_button("写入全员分红", function()
     SET_INT_GLOBAL(casinoCut + 1, casino2Int:get_value())
     SET_INT_GLOBAL(casinoCut + 2, casino2Int:get_value())
@@ -199,23 +270,29 @@ local casino2 = myTab:add_button("写入全员分红", function()
     --设置面板--end
 end)
 
+myTab:add_separator()
+
+myTab:add_button("传送到赌场大门口", function()
+    TELEPORT(923.47003, 46.83284, 81.10634)
+end)
+
 myTab:add_sameline()
 
-myTab:add_button("传送到下水道", function()
-    TELEPORT(1034.9442, -271.90024, 50.37195)
-    SET_HEADING(28)
+myTab:add_button("传送到赌场后门", function()
+    TELEPORT(966.12872, -8.27024, 80.76541)
 end)
--- myTab:add_sameline()
 
-myTab:add_button("一键拿取113w", function()
-    chk_script_host("fm_mission_controller")
-    SET_INT_LOCAL("fm_mission_controller", casinoTakeInt, 1136360)
-end)
 myTab:add_sameline()
 
-local casino40 = myTab:add_button("生成骷髅马", function()
-    spawn("KURUMA2")
+myTab:add_button("传送到赌场后门桥洞", function()
+    TELEPORT(975.97314, -70.82895, 74.95919)
 end)
+
+myTab:add_button("传送到下水道口", function()
+    TELEPORT(1032.64884, -270.79614, 50.88062)
+	SET_HEADING(20)
+end)
+
 myTab:add_sameline()
 
 local casino4 = myTab:add_button("跳指纹/密码锁", function()
@@ -233,42 +310,115 @@ local casino5 = myTab:add_button("跳切割金库", function()
     SET_INT_LOCAL("fm_mission_controller", dczuankong, GET_INT_LOCAL("fm_mission_controller", dczuankongget))
 end)
 
+myTab:add_separator()
+
+myTab:add_button("一键拿取329w", function()
+    chk_script_host("fm_mission_controller")
+    SET_INT_LOCAL("fm_mission_controller", casinoTakeInt, 3290000)
+end)
+
+-- myTab:add_sameline()
+
 local casino_take = myTab:add_input_int("拿取金额")
-myTab:add_sameline()
-myTab:add_button("写入拿取金额", function()
+
+-- myTab:add_sameline()
+
+myTab:add_button("写入背包内的金额", function()
     chk_script_host("fm_mission_controller")
     SET_INT_LOCAL("fm_mission_controller", casinoTakeInt, casino_take:get_value())
 end)
+
+myTab:add_separator()
+
+local casino40 = myTab:add_button("生成骷髅马", function()
+    spawn("KURUMA2")
+end)
+
+
 ----casino----end--------------------------------
 
 ----domms----start
-now_tab = 'Domms Heist'
+now_tab = '快速末日'
 myMainTab:add_tab(now_tab)
 myTab = gui.get_tab(now_tab)
 -- myTab:add_separator()
 myTab:add_text("末日")
 
-myTab:add_button("完成末日一前置", function()
+myTab:add_button("完成末日一前置-209", function()
     STAT_SET_INT("GANGOPS_FLOW_MISSION_PROG", 503)
     STAT_SET_INT("GANGOPS_HEIST_STATUS", -229383)
     STAT_SET_INT("GANGOPS_FLOW_NOTIFICATIONS", 1557)
 end)
+
 myTab:add_sameline()
 
-myTab:add_button("完成末日二前置", function()
+myTab:add_button("完成末日二前置-140", function()
     STAT_SET_INT("GANGOPS_FLOW_MISSION_PROG", 240)
     STAT_SET_INT("GANGOPS_HEIST_STATUS", -229378)
     STAT_SET_INT("GANGOPS_FLOW_NOTIFICATIONS", 1557)
 end)
+
 myTab:add_sameline()
 
-myTab:add_button("完成末日三前置", function()
+myTab:add_button("完成末日三前置-113", function()
     STAT_SET_INT("GANGOPS_FLOW_MISSION_PROG", 16368)
     STAT_SET_INT("GANGOPS_HEIST_STATUS", -229380)
     STAT_SET_INT("GANGOPS_FLOW_NOTIFICATIONS", 1557)
 end)
+
+myTab:add_text("末日设施按照价格排序分为1-9，进入设施后才能传送到计划屏幕前")
+
+myTab:add_button("设施1-水库", function()
+    TELEPORT(1864.76831, 269.28372, 164.26144)
+end)
+
 myTab:add_sameline()
 
+myTab:add_button("设施2-奥尼尔农场", function()
+    TELEPORT(2755.82055, 3907.36230, 45.75238)
+end)
+
+myTab:add_sameline()
+
+myTab:add_button("设施3-监狱", function()
+    TELEPORT(1273.20910, 2835.07885, 49.352531)
+end)
+
+myTab:add_sameline()
+
+myTab:add_button("传送到设施4", function()
+    TELEPORT(34.42562, 2620.85376, 85.93717)
+end)
+
+myTab:add_sameline()
+
+myTab:add_button("传送到设施5", function()
+    TELEPORT(-3.16610, 3344.40698, 41.53642)
+end)
+
+myTab:add_button("设施6-风电厂", function()
+    TELEPORT(2086.11669, 1761.24853, 104.38518)
+end)
+
+myTab:add_sameline()
+
+myTab:add_button("设施7-军事基地", function()
+    TELEPORT(-2229.24902, 2399.28198, 12.25624)
+end)
+
+myTab:add_sameline()
+
+myTab:add_button("设施8-戈多山", function()
+    TELEPORT(3389.53955, 5508.91601, 26.18332)
+end)
+
+myTab:add_sameline()
+
+myTab:add_button("设施9-佩立托湾", function()
+    TELEPORT(19.41532, 6825.33447, 15.76134)
+end)
+
+myTab:add_sameline()
 
 ----从 sch 抄的 https://github.com/sch-lda/SCH-LUA-YIMMENU/blob/main/sch.lua
 myTab:add_button("设施计划屏幕", function()
@@ -277,26 +427,72 @@ myTab:add_button("设施计划屏幕", function()
     if intr == 269313 then
         if HUD.DOES_BLIP_EXIST(HUD.GET_FIRST_BLIP_INFO_ID(428)) then
             TELEPORT(350.69284, 4872.308, -60.794243)
-            SET_HEADING(-50)
+            SET_HEADING(310)
         end
     else
         gui.show_message("确保自己在设施内", "请先进入设施再传送到计划屏幕")
         tpfac()
     end
 end)
+
 -- myTab:add_sameline()
 
 local domms = myTab:add_input_int("分红")
-myTab:add_sameline()
+
 myTab:add_button("写入全员分红", function()
     SET_INT_GLOBAL(dommsCut + 1, domms:get_value())
     SET_INT_GLOBAL(dommsCut + 2, domms:get_value())
     SET_INT_GLOBAL(dommsCut + 3, domms:get_value())
     SET_INT_GLOBAL(dommsCut + 4, domms:get_value())
 end)
--- myTab:add_sameline()
 
-myTab:add_button("破解小游戏", function()
+myTab:add_separator()
+
+local domms1 = myTab:add_button("生成骷髅马", function()
+    spawn("KURUMA2")
+end)
+
+myTab:add_sameline()
+
+local domms2 = myTab:add_button("生成图拉尔多", function()
+    spawn("TOREADOR")
+end)
+
+myTab:add_sameline()
+
+local domms3 = myTab:add_button("生成德罗索", function()
+    spawn("DELUXO")
+end)
+
+myTab:add_sameline()
+
+local domms4 = myTab:add_button("生成MK2", function()
+    spawn("OPPRESSOR2")
+end)
+
+myTab:add_button("到末日一门口", function()
+    TELEPORT(2062.11792, 2954.55639, 49.37017)
+end)
+
+myTab:add_sameline()
+
+myTab:add_button("到末日二飞机", function()
+    TELEPORT(-304.73529, 6099.96972, 31.70377)
+end)
+
+myTab:add_sameline()
+
+myTab:add_button("到末日三载具", function()
+    TELEPORT(2559.99292, 4677.60156, 34.27680)
+end)
+
+myTab:add_sameline()
+
+myTab:add_button("到末日三隧道", function()
+    TELEPORT(-132.34474, 4613.67529, 125.31480)
+end)
+
+myTab:add_button("末日三破解小游戏", function()
     SET_INT_LOCAL("fm_mission_controller", doomsdayAC1Server, 3)
     SET_INT_LOCAL("fm_mission_controller", doomsdayHack2, 2)
     SET_INT_LOCAL("fm_mission_controller", doomsdayHack1, 3) ---==2
@@ -324,7 +520,7 @@ end)
 
 -- myTab:add_separator()
 -----apartment
-now_tab = 'Apartment Heist'
+now_tab = '快速公寓'
 myMainTab:add_tab(now_tab)
 myTab = gui.get_tab(now_tab)
 myTab:add_text("公寓")
@@ -333,13 +529,18 @@ myTab:add_button("传到公寓", function()
     SET_HEADING(11)
 end)
 
+myTab:add_sameline()
+
 myTab:add_button("完成前置", function()
     STAT_SET_INT("HEIST_PLANNING_STAGE", -1)
 end)
 
 myTab:add_separator()
+
 local apartment = myTab:add_input_int("分红")
+
 myTab:add_sameline()
+
 myTab:add_button("设置全员分红", function()
     network.force_script_host("freemode")
     local ren = 3
