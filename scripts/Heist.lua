@@ -1,4 +1,4 @@
--- v1.89 -- 感谢crazyzhang、Alice和sch的指导； 更新佩岛和dc，修正末日
+-- v1.90 -- 感谢crazyzhang、Alice和sch的指导； 更新佩岛和dc，修正末日，公寓
 local tabName = "RS Heist by wang--------------"
 local myMainTab = gui.add_tab(tabName)
 -- local myTab = gui.get_tab(tabName)
@@ -550,7 +550,7 @@ myTab:add_button("设置全员分红", function()
     SET_INT_GLOBAL(apartmentCut + 2, apartment_HOST_CUT1)
     SET_INT_GLOBAL(apartmentCut + 3, apartment_HOST_CUT1)
     SET_INT_GLOBAL(apartmentCut + 4, apartment_HOST_CUT1)
-    script:sleep(500)
+    myYield(500)
     SET_INT_GLOBAL(apartmentMyCut + 1, apartment_HOST_CUT1)
 end)
 
